@@ -44,8 +44,8 @@ const TopNavigation = () => {
 
     const menuItems = [
         {label: "대회정보", icon: <MilitaryTechOutlined/>, key: "home", href: "/competition"},
-        {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
-        {label: "마이룸", icon: <Checkroom/>, key: "notifications", href: "/myroom"},
+        // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
+        // {label: "마이룸", icon: <Checkroom/>, key: "notifications", href: "/myroom"},
     ];
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -74,7 +74,7 @@ const TopNavigation = () => {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
             <Typography variant="h6" sx={{my: 2}}>
-                MUI
+                BMU
             </Typography>
             <Divider/>
             <List>
@@ -135,7 +135,7 @@ const TopNavigation = () => {
                                         textDecoration: 'none',
                                     }}
                                 >
-                                    InMyRoom
+                                    BuildMeUp
                                 </Typography>
                                 <Box sx={{flexGrow: 1, display: 'flex'}}>
                                     {menuItems.map((menu) => (

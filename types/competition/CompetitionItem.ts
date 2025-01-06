@@ -3,11 +3,10 @@ export interface CompetitionItem {
     name: string;
     year: string;
     host: string;
-    description: string;
     location: string;
     eventStartDate: Date;
-    regStartDate: Date;
-    regEndDate: Date;
+    regStartDate: Date | null;
+    regEndDate: Date | null;
     link: string;
     fee: number;
     imgs: string[];

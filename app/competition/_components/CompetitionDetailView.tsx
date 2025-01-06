@@ -44,9 +44,6 @@ const CompetitionDetailView: React.FC<CompetitionDetailProps> = ({item, onBack, 
                 <Typography variant="h4" gutterBottom>
                     {item.name}
                 </Typography>
-                <Typography variant="body1" sx={{whiteSpace: 'pre-line'}}>
-                    {item.description}
-                </Typography>
                 <Typography variant="body2">
                     <strong>주최:</strong> {item.host}
                 </Typography>

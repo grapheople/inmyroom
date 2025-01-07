@@ -15,7 +15,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     const isMobile = useMediaQuery("(max-width:600px)"); // 모바일 여부 체크
     return (
         <html lang="en">
-        <body style={{overflow: "hidden"}}>
+        <body>
         <AppRouterCacheProvider options={{enableCssLayer: true}}>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>

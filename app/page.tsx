@@ -1,11 +1,23 @@
 "use client";
 
-import React from "react";
-import { Grid2, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Grid2, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import WarningIcon from "@mui/icons-material/Warning"; // Import an icon
 
 const ResponsiveDetailView: React.FC = () => {
+    const [open, setOpen] = useState(false); // State to control dialog visibility
+
+    const handleRunningClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault(); // Prevent the default page navigation
+        setOpen(true); // Open the dialog
+    };
+
+    const handleClose = () => {
+        setOpen(false); // Close the dialog
+    };
+
     return (
         <Box
             sx={{
@@ -44,7 +56,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <Link href="/competition" passHref>
+                        <a onClick={handleRunningClick}>
                             <img
                                 src="/running.webp"
                                 alt="Running Thumbnail"
@@ -57,7 +69,7 @@ const ResponsiveDetailView: React.FC = () => {
                                     cursor: "pointer",
                                 }}
                             />
-                        </Link>
+                        </a>
                         <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
                             Running
                         </Typography>
@@ -75,7 +87,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <Link href="/competition" passHref>
+                        <a href="/competition">
                             <img
                                 src="/cycling.webp"
                                 alt="Cycling Thumbnail"
@@ -88,13 +100,60 @@ const ResponsiveDetailView: React.FC = () => {
                                     cursor: "pointer",
                                 }}
                             />
-                        </Link>
+                        </a>
                         <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
                             Cycling
                         </Typography>
                     </Box>
                 </Grid2>
             </Grid2>
+
+            {/* Dialog for "준비 중입니다" */}
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                sx={{
+                    "& .MuiDialog-paper": {
+                        borderRadius: "16px", // Rounded corners
+                        padding: "20px",
+                        backgroundColor: "#f9f9f9", // Light gray background
+                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)", // Subtle shadow
+                    },
+                }}
+            >
+                <DialogContent>
+                    <Typography
+                        sx={{
+                            textAlign: "center",
+                            fontSize: "1.5rem",
+                        }}
+                    >
+                        준비 중입니다! 🚧
+                    </Typography>
+                </DialogContent>
+                <DialogActions
+                    sx={{
+                        justifyContent: "center", // Center the buttons
+                    }}
+                >
+                    <Button
+                        onClick={handleClose}
+                        variant="contained"
+                        sx={{
+                            padding: "8px 16px",
+                            borderRadius: "8px",
+                            textTransform: "none",
+                            backgroundColor: "#f57c00", // Custom button background color
+                            color: "#fff", // Custom text color
+                            "&:hover": {
+                                backgroundColor: "#e65100", // Hover background color
+                            },
+                        }}
+                    >
+                        닫기
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };

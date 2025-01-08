@@ -6,7 +6,7 @@ import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/app/theme';
 import TopNavigation from "@/components/TopNavigation";
-import Analytics from "@/components/Analytics";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import {useMediaQuery} from "@mui/material";
@@ -30,8 +30,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <meta property="og:image:width" content="1200"/>
             <meta property="og:image:height" content="630"/>
             <meta property="og:type" content="website"/>
-            <Analytics/>
+
         </head>
+        <GoogleTagManager gtmId="GTM-TH4TZR99" />
         <body>
         <AppRouterCacheProvider options={{enableCssLayer: true}}>
             <ThemeProvider theme={theme}>
@@ -45,6 +46,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             </ThemeProvider>
         </AppRouterCacheProvider>
         </body>
+        <GoogleAnalytics gaId="G-1BNP8LR4S2" />
         </html>
     );
 }

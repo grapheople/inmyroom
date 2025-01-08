@@ -20,6 +20,7 @@
     "@mui/material": "^6.1.9",
     "@mui/material-nextjs": "^6.1.9",
     "@mui/styles": "^6.1.9",
+    "@next/third-parties": "^15.1.4",
     "framer-motion": "^11.13.1",
     "gh-pages": "^6.3.0",
     "moment": "^2.30.1",

@@ -5,7 +5,7 @@ const Analytics = () => {
     return (
         <>
             <Script async src="https://www.googletagmanager.com/gtag/js?id=G-1BNP8LR4S2"></Script>
-            <Script
+            <script
                 dangerouslySetInnerHTML={{
                     __html: `
                         window.dataLayer = window.dataLayer || [];

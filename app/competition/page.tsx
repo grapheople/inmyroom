@@ -71,8 +71,8 @@ const ResponsiveDetailView: React.FC = () => {
                                     style={{ flex: 1}} // 세 번째 칼럼
                                 />
                                 <ListItemText
-                                    primary={`${item.goal1 ? "거리 " + item.goal1 : ""}`}
-                                    secondary={`${item.goal2 ? "획득고도 " + item.goal2 : ""}`}
+                                    primary={`${item.goal1 ? item.goal1 : ""}`}
+                                    secondary={`${item.goal2 ? item.goal2 : ""}`}
                                     style={{ flex: 1}} // 세 번째 칼럼
                                 />
                             </ListItem>
@@ -89,8 +89,8 @@ const ResponsiveDetailView: React.FC = () => {
                                     {item.regStartDate ? moment(item.regStartDate).format("YYYY. M. D") : ""} ~ {item.regEndDate ? moment(item.regEndDate).format('YYYY. M. D') : ""}
                                 </Typography>
                                 <Typography><strong>참가비:</strong> {item.fee.toLocaleString()}원</Typography>
-                                <Typography><strong>거리:</strong> {item.goal1}</Typography>
-                                {item.goal2 != null && (<Typography><strong>획득고도:</strong> {item.goal2}</Typography>)}
+                                <Typography>{item.goal1}</Typography>
+                                {item.goal2 != null && (<Typography>{item.goal2}</Typography>)}
                                 <Typography><strong>주최:</strong> {item.host}</Typography>
                                 <Typography><strong>위치:</strong> {item.location}</Typography>
                                 <Typography>

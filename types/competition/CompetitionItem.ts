@@ -1,6 +1,7 @@
 export interface CompetitionItem {
     id: number;
     name: string;
+    description?: string | null;
     year: string;
     host: string;
     location: string;

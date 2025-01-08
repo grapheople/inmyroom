@@ -54,19 +54,6 @@ const TopNavigation = () => {
     };
     const drawerWidth = 240;
 
-    const settings = ['내 정보', '마이룸', '로그아웃'];
-
-
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
     const movePage = (path: string) => {
         location.href = path;
     }
@@ -99,7 +86,9 @@ const TopNavigation = () => {
                     style={{
                         position: "fixed",
                         bottom: 0,
+                        zIndex: 1000,
                         width: "100%",
+                        boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
                     }}
                 >
                     {menuItems.map((item) => (
@@ -109,7 +98,7 @@ const TopNavigation = () => {
             ) : (
                 <Container>
                     <AppBar position="fixed">
-                        <Container maxWidth="xl" >
+                        <Container maxWidth="md" >
                             <Toolbar disableGutters>
                                 <IconButton
                                     size="large"
@@ -147,35 +136,6 @@ const TopNavigation = () => {
                                             {menu.label}
                                         </Button>
                                     ))}
-                                </Box>
-                                <Box sx={{flexGrow: 0}}>
-                                    <Tooltip title="Open settings">
-                                        <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                            <Avatar />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Menu
-                                        sx={{mt: '45px'}}
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
-                                    >
-                                        {settings.map((setting) => (
-                                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                                <Typography sx={{textAlign: 'center'}}>{setting}</Typography>
-                                            </MenuItem>
-                                        ))}
-                                    </Menu>
                                 </Box>
                             </Toolbar>
                         </Container>

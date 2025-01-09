@@ -37,7 +37,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <AppRouterCacheProvider options={{enableCssLayer: true}}>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <TopNavigation/>
+                <TopNavigation />
                 <Box sx={{pt: isMobile ? 0 : "68px"}}>
                     <Container maxWidth={"md"}>
                         {props.children}

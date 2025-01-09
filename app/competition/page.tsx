@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Accordion,
     AccordionSummary,
@@ -21,7 +21,21 @@ import { sendGTMEvent } from '@next/third-parties/google'
 import {competitionData} from "@/data/granfondo";
 
 const ResponsiveDetailView: React.FC = () => {
+    const [isMobile, setIsMobile] = useState(false);
     const [expandedId, setExpandedId] = useState<number | null>(null);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 600);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     const handleToggle = (id: number) => {
         sendGTMEvent({
@@ -77,11 +91,13 @@ const ResponsiveDetailView: React.FC = () => {
                                     secondary={`모집일`}
                                     style={{ flex: 1}} // 세 번째 칼럼
                                 />
-                                <ListItemText
-                                    primary={`${item.goal1 ? item.goal1 : ""}`}
-                                    secondary={`${item.goal2 ? item.goal2 : ""}`}
-                                    style={{ flex: 1}} // 세 번째 칼럼
-                                />
+                                {!isMobile ? (
+                                    <ListItemText
+                                        primary={`${item.goal1 ? item.goal1 : ""}`}
+                                        secondary={`${item.goal2 ? item.goal2 : ""}`}
+                                        style={{ flex: 1}} // 세 번째 칼럼
+                                    />
+                                ) : null}
                             </ListItem>
                         </AccordionSummary>
                         <AccordionDetails>

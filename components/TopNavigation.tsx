@@ -16,14 +16,11 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import {Checkroom, ForumOutlined, MilitaryTechOutlined} from "@mui/icons-material";
+import {EmojiEvents, FitnessCenter, Home} from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const TopNavigation = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -43,7 +40,9 @@ const TopNavigation = () => {
     }, []);
 
     const menuItems = [
-        {label: "대회정보", icon: <MilitaryTechOutlined/>, key: "home", href: "/competition"},
+        {label: "홈", icon: <Home/>, key: "home", href: "/"},
+        {label: "대회정보", icon: <EmojiEvents/>, key: "competition", href: "/competition"},
+        {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
         // {label: "마이룸", icon: <Checkroom/>, key: "notifications", href: "/myroom"},
     ];
@@ -90,15 +89,26 @@ const TopNavigation = () => {
                         width: "100%",
                         boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
                     }}
+                    showLabels
                 >
-                    {menuItems.map((item) => (
-                        <BottomNavigationAction key={item.key} label={item.label} icon={item.icon}/>
+                    {menuItems.map((menu, index) => (
+                        <BottomNavigationAction
+                            key={menu.key}
+                            label={menu.label}
+                            icon={menu.icon}
+                            onClick={() => movePage(menu.href)}
+                            style={{
+                                color: value === index ? "#1976d2" : "gray", // 선택된 메뉴는 강조된 색상
+                                transform: value === index ? "scale(1.1)" : "scale(1)", // 선택된 메뉴는 크기 확대
+                                transition: "transform 0.2s, color 0.2s", // 부드러운 전환 효과
+                            }}
+                        />
                     ))}
                 </BottomNavigation>
             ) : (
                 <Container>
                     <AppBar position="fixed">
-                        <Container maxWidth="md" >
+                        <Container maxWidth="md">
                             <Toolbar disableGutters>
                                 <IconButton
                                     size="large"
@@ -116,6 +126,7 @@ const TopNavigation = () => {
                                     component="a"
                                     href="#app-bar-with-responsive-menu"
                                     sx={{
+                                        ml: 2,
                                         mr: 2,
                                         fontFamily: 'monospace',
                                         fontWeight: 700,
@@ -127,14 +138,27 @@ const TopNavigation = () => {
                                     BuildMeUp
                                 </Typography>
                                 <Box sx={{flexGrow: 1, display: 'flex'}}>
-                                    {menuItems.map((menu) => (
-                                        <Button
-                                            key={menu.key}
-                                            sx={{my: 2, color: 'white', display: 'block'}}
-                                            onClick={() => movePage(menu.href)}
-                                        >
-                                            {menu.label}
-                                        </Button>
+                                    {menuItems.map((menu, index) => (
+                                        <React.Fragment key={menu.key}>
+                                            <Button
+                                                sx={{my: 2, color: 'white', display: 'block'}}
+                                                onClick={() => movePage(menu.href)}
+                                            >
+                                                {menu.label}
+                                            </Button>
+                                            {index < menuItems.length - 1 && (
+                                                <Divider
+                                                    orientation="vertical"
+                                                    flexItem
+                                                    sx={{
+                                                        bgcolor: 'rgba(255, 255, 255, 0.5)', // 디바이더 색상
+                                                        width: '2px', // 디바이더 두께
+                                                        height: 'auto', // 세로로 채우기
+                                                        mx: 1, // 좌우 여백
+                                                    }}
+                                                />
+                                            )}
+                                        </React.Fragment>
                                     ))}
                                 </Box>
                             </Toolbar>

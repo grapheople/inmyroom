@@ -19,35 +19,27 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import {EmojiEvents, FitnessCenter, Home} from "@mui/icons-material";
-import { useRouter } from "next/router";
+import {AssistWalker, EmojiEvents, Home} from "@mui/icons-material";
 
-const TopNavigation = () => {
-    const [isMobile, setIsMobile] = useState(false);
+interface TopNavigationProps {
+    // 부모로부터 전달받을 값
+    isMobile: boolean;
+}
+
+
+const TopNavigation: React.FC<TopNavigationProps> = ({ isMobile }) => {
     const [value, setValue] = useState(0);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 600);
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const menuItems = [
         {label: "홈", icon: <Home/>, key: "home", href: "/"},
-        {label: "대회정보", icon: <EmojiEvents/>, key: "competition", href: "/competition"},
-        {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
+        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/competition"},
+        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/painpoint"},
+        // {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
         // {label: "마이룸", icon: <Checkroom/>, key: "notifications", href: "/myroom"},
     ];
 
-    const [mobileOpen, setMobileOpen] = React.useState(false);
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };

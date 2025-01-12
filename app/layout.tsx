@@ -6,11 +6,12 @@ import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '@/app/theme';
 import TopNavigation from "@/components/TopNavigation";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import {useMediaQuery} from "@mui/material";
 import "@/app/globals.css";
+import BottomTab from "@/components/BottomTab";
 
 export default function RootLayout(props: { children: React.ReactNode }) {
     const isMobile = useMediaQuery("(max-width:600px)"); // 모바일 여부 체크
@@ -32,21 +33,26 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <meta property="og:type" content="website"/>
 
         </head>
-        <GoogleTagManager gtmId="GTM-TH4TZR99" />
+        <GoogleTagManager gtmId="GTM-TH4TZR99"/>
         <body>
         <AppRouterCacheProvider options={{enableCssLayer: true}}>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <TopNavigation isMobile={isMobile} />
-                <Box sx={{pt: isMobile ? 0 : "68px"}}>
+                <Box sx={{display: "flex"}}>
+                    {!isMobile ? <TopNavigation/> : null}
                     <Container maxWidth={"md"}>
-                        {props.children}
+                        <Box sx={{
+                            pt: {xs: 0 , sm: 10}
+                        }}>
+                            {props.children}
+                        </Box>
                     </Container>
+                    {isMobile ? <BottomTab/> : null}
                 </Box>
             </ThemeProvider>
         </AppRouterCacheProvider>
         </body>
-        <GoogleAnalytics gaId="G-1BNP8LR4S2" />
+        <GoogleAnalytics gaId="G-1BNP8LR4S2"/>
         </html>
     );
 }

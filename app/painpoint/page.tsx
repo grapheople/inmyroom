@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
-import HumanBody from './_components/HumanBody';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import { PainPointGroup } from './_components/types';
+import PainPointModal from './_components/PainPointModal';
+import Box from "@mui/material/Box";
 
-const DUMMY_PAIN_POINT_GROUPS: PainPointGroup[] = [
+const painPointGroups: PainPointGroup[] = [
     {
         id: 'shoulder',
         name: '어깨',
@@ -43,10 +45,63 @@ const DUMMY_PAIN_POINT_GROUPS: PainPointGroup[] = [
     },
 ];
 
-export default function Home() {
+const HumanBody: React.FC = () => {
+    const [selectedGroup, setSelectedGroup] = useState<PainPointGroup | null>(null);
+
+    const handleClickPainPointGroup = (group: PainPointGroup) => {
+        setSelectedGroup(group);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedGroup(null);
+    };
+
     return (
-        <main style={{ display: 'flex', justifyContent: 'center' }}>
-            <HumanBody painPointGroups={DUMMY_PAIN_POINT_GROUPS} />
-        </main>
+        <Box sx={{
+            position: "relative",
+            width: "100%",
+            height: '100vh',
+        }}>
+            <img
+                src="/human-body.webp"
+                alt="인체 이미지"
+                style={
+                    {
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                    }
+                }
+            />
+
+            {/* 각 그룹(동그라미) 표시 */}
+            {painPointGroups.map((group) => (
+                <div
+                    key={group.id}
+                    onClick={() => handleClickPainPointGroup(group)}
+                    style={{
+                        position: 'absolute',
+                        left: group.x,
+                        top: group.y,
+                        width: '20px',
+                        height: '20px',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(255, 0, 0, 0.7)',
+                        transform: 'translate(-50%, -50%)',
+                        cursor: 'pointer',
+                    }}
+                />
+            ))}
+
+            {/* 모달 */}
+            <PainPointModal
+                isOpen={!!selectedGroup}
+                onClose={handleCloseModal}
+                title={selectedGroup?.name || ''}
+                painPoints={selectedGroup?.painPoints || []}
+            />
+        </Box>
     );
-}
+};
+
+export default HumanBody;

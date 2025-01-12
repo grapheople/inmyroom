@@ -48,7 +48,7 @@ const ResponsiveDetailView: React.FC = () => {
     };
 
     return (
-        <Box>
+        <Box sx={{paddingBottom: 7}}>
             <List>
                 {competitionData
                     .sort((a, b) => moment(a.eventStartDate).valueOf() - moment(b.eventStartDate).valueOf())

@@ -60,7 +60,9 @@ const HumanBody: React.FC = () => {
         <Box sx={{
             position: "relative",
             width: "100%",
-            height: '100vh',
+            height: `calc(100vh - 64px)`,
+            paddingTop: "20px",
+            paddingBottom: "20px",
         }}>
             <img
                 src="/human-body.webp"

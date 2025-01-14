@@ -42,7 +42,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                     {!isMobile ? <TopNavigation/> : null}
                     <Container maxWidth={"md"}>
                         <Box sx={{
-                            pt: {xs: 0 , sm: 10}
+                            pt: {xs: 0 , sm: "64px"}
                         }}>
                             {props.children}
                         </Box>

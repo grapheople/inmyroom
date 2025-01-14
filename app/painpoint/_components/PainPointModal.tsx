@@ -1,11 +1,25 @@
-import React from 'react';
-import { Types } from './types';
+"use client";
+
+import React, {useState} from 'react';
+import {PainPoint} from './types';
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
+    List,
+    ListItem,
+    ListItemText, Button,
+} from '@mui/material';
+import {sendGTMEvent} from "@next/third-parties/google";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Box from "@mui/material/Box";
 
 interface PainPointModalProps {
     isOpen: boolean;
     onClose: () => void;
     title: string;
-    painPoints: Types[];
+    painPoints: PainPoint[];
 }
 
 const PainPointModal: React.FC<PainPointModalProps> = ({
@@ -14,8 +28,19 @@ const PainPointModal: React.FC<PainPointModalProps> = ({
                                                            title,
                                                            painPoints,
                                                        }) => {
+    const [expandedId, setExpandedId] = useState<string | null>(null);
+
     if (!isOpen) return null; // 모달이 닫혀있으면 렌더링하지 않음
 
+    const handleToggle = (id: string) => {
+        sendGTMEvent({
+            event: 'expand_pain_solution_item',
+            category: 'painpoint',
+            action: 'toggle',
+            label: id.toString(),
+        });
+        setExpandedId((prev) => (prev === id ? null : id));
+    };
     return (
         <div
             style={{
@@ -29,7 +54,7 @@ const PainPointModal: React.FC<PainPointModalProps> = ({
             }}
             onClick={onClose} // 배경 클릭 시 모달 닫기
         >
-            <div
+            <Box
                 style={{
                     backgroundColor: '#fff',
                     padding: '2rem',
@@ -39,26 +64,49 @@ const PainPointModal: React.FC<PainPointModalProps> = ({
                 }}
                 onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 배경 클릭 이벤트 버블링 방지
             >
-                <h2 style={{ marginBottom: '1rem' }}>{title}</h2>
+                <h2 style={{marginBottom: '1rem', fontWeight: "bold"}}>{title} 부위</h2>
+                <div>
+                    {painPoints.map((point, index) => (
+                        <div>
+                            {point.causeAndSolution.map((item, index) => (
+                                <Accordion
+                                    key={index}
+                                    expanded={expandedId === point.id + index}
+                                    onChange={() => handleToggle(point.id + index)}
+                                    style={{padding: '0.5rem'}}
+                                >
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon/>}
+                                    >
+                                        <Typography>{item.cause}</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <Typography>{item.solution}</Typography>
+                                    </AccordionDetails>
+                                </Accordion>
+                            ))}
+                        </div>
+                    ))}
+                </div>
 
-                {painPoints.map((point, index) => (
-                    <div key={index} style={{marginBottom: '1rem'}}>
-                        <p>
-                            <strong>명칭 :</strong> {point.name}
-                        </p>
-                        <p>
-                            <strong>통증 원인 :</strong> {point.cause}
-                        </p>
-                        <p>
-                            <strong>해결 방법 :</strong> {point.solution}
-                        </p>
-                    </div>
-                ))}
-
-                <button onClick={onClose} style={{marginTop: '1rem'}}>
-                닫기
-                </button>
-            </div>
+                <Button
+                    onClick={onClose}
+                    sx={{
+                        marginTop: "20px", // 버튼과 내용 사이 간격
+                        borderRadius: "20px", // 둥근 모서리
+                        padding: "5px 20px", // 버튼 크기 조정
+                        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // 버튼 그림자
+                        transition: "transform 0.2s ease, box-shadow 0.2s ease", // 부드러운 애니메이션
+                        "&:hover": {
+                            backgroundColor: "rgba(0, 123, 255, 0.8)", // 호버 시 색상 변경
+                            transform: "scale(1.05)", // 호버 시 살짝 확대
+                            boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.2)", // 호버 시 그림자 강조
+                        },
+                    }}
+                >
+                    닫기
+                </Button>
+            </Box>
         </div>
     );
 };

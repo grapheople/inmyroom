@@ -222,5 +222,22 @@ export const competitionData: CompetitionItem[] = [
         "goal3": null,
         "goal4": null,
         "imgs": []
+    },
+    {
+        "id": 14,
+        "year": "2025",
+        "name": "산티니 충주 그란폰도",
+        "host": "충주시",
+        "location": "충주종합운동장",
+        "eventStartDate": new Date("2025-09-20T08:00:00"),
+        "regStartDate": new Date("2025-02-10T10:00:00"),
+        "regEndDate": null,
+        "link": "https://chungjugf.co.kr/bri/sub.php?sub=sub_10&snb=1&menu=10",
+        "fee": 110000,
+        "goal1": "거리 119km",
+        "goal2": "획득고도 3670m",
+        "goal3": null,
+        "goal4": null,
+        "imgs": []
     }
 ];

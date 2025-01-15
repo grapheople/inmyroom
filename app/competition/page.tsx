@@ -51,7 +51,18 @@ const ResponsiveDetailView: React.FC = () => {
         <Box sx={{paddingBottom: 7}}>
             <List>
                 {competitionData
-                    .sort((a, b) => moment(a.eventStartDate).valueOf() - moment(b.eventStartDate).valueOf())
+                    .sort((a, b) => {
+                        const aDate = a.regStartDate;
+                        const bDate = b.regStartDate;
+                        if (aDate && bDate) {
+                            const diff = aDate.getTime() - bDate.getTime();
+                            return diff !== 0 ? diff : a.id - b.id;
+                        }
+                        if (!aDate && !bDate) {
+                            return a.id - b.id;
+                        }
+                        return aDate ? -1 : 1;
+                    })
                     .map((item) => (
                     <Accordion disabled={item.eventStartDate == null} // 링크가 없는 경우 비활성화
                         key={item.id}

@@ -91,9 +91,11 @@ const PainPointModal: React.FC<PainPointModalProps> = ({
 
                 <Button
                     onClick={onClose}
-                    sx={{
+                    style={{
                         marginTop: "20px", // 버튼과 내용 사이 간격
-                        borderRadius: "20px", // 둥근 모서리
+                        padding: "5px 20px", // 버튼 크기 조정
+                    }}
+                    sx={{
                         padding: "5px 20px", // 버튼 크기 조정
                         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // 버튼 그림자
                         transition: "transform 0.2s ease, box-shadow 0.2s ease", // 부드러운 애니메이션

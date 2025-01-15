@@ -19,10 +19,12 @@ import Button from "@mui/material/Button";
 import { sendGTMEvent } from '@next/third-parties/google'
 
 import {competitionData} from "@/data/granfondo";
+import {LocationOn, Map} from "@mui/icons-material";
 
 const ResponsiveDetailView: React.FC = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [expandedId, setExpandedId] = useState<number | null>(null);
+    const today = new Date();
 
     useEffect(() => {
         const handleResize = () => {
@@ -54,13 +56,33 @@ const ResponsiveDetailView: React.FC = () => {
                     .sort((a, b) => {
                         const aDate = a.regStartDate;
                         const bDate = b.regStartDate;
+
+                        // 둘 다 등록일이 존재할 때
                         if (aDate && bDate) {
-                            const diff = aDate.getTime() - bDate.getTime();
-                            return diff !== 0 ? diff : a.id - b.id;
+                            // 1. 오늘 날짜와의 차이(절댓값)가 작은 순
+                            const aDiff = Math.abs(aDate.getTime() - today.getTime());
+                            const bDiff = Math.abs(bDate.getTime() - today.getTime());
+
+                            if (aDiff !== bDiff) {
+                                return aDiff - bDiff;
+                            }
+
+                            // 2. 등록일 자체가 빠른 순
+                            const dateDiff = aDate.getTime() - bDate.getTime();
+                            if (dateDiff !== 0) {
+                                return dateDiff;
+                            }
+
+                            // 3. id가 작은 순
+                            return a.id - b.id;
                         }
+
+                        // 둘 다 등록일이 없을 때
                         if (!aDate && !bDate) {
                             return a.id - b.id;
                         }
+
+                        // 하나만 등록일이 없는 경우
                         return aDate ? -1 : 1;
                     })
                     .map((item) => (
@@ -150,6 +172,30 @@ const ResponsiveDetailView: React.FC = () => {
                                         }}
                                     >
                                         대회 사이트 이동
+                                    </Button>
+                                    <Button
+                                        className={"text-white"}
+                                        variant="contained"
+                                        color="info"
+                                        href={"https://map.naver.com/p/search/" + item.location+"??c=13.00,0,0,0,dh"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        startIcon={<LocationOn />} // 아이콘 추가
+                                        sx={{
+                                            marginLeft: "10px",
+                                            borderRadius: "20px", // 둥근 모서리
+                                            padding: "5px 20px", // 버튼 크기 조정
+                                            textTransform: "none", // 텍스트 소문자로 유지
+                                            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // 버튼 그림자
+                                            transition: "transform 0.2s ease, box-shadow 0.2s ease", // 부드러운 애니메이션
+                                            "&:hover": {
+                                                backgroundColor: "rgba(0, 123, 255, 0.8)", // 호버 시 색상 변경
+                                                transform: "scale(1.05)", // 호버 시 살짝 확대
+                                                boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.2)", // 호버 시 그림자 강조
+                                            },
+                                        }}
+                                    >
+                                        지도 보기
                                     </Button>
                                 </Typography>
                                 {item.imgs.length > 0 && (

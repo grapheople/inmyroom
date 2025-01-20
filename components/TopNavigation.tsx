@@ -20,21 +20,35 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import {AssistWalker, EmojiEvents, Home} from "@mui/icons-material";
+import {AssistWalker, Checkroom, EmojiEvents, Home} from "@mui/icons-material";
+import {useSport} from "@/context/SportProvider";
 
 
 const TopNavigation: React.FC = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const router = useRouter(); // Next.js 라우팅 hook
+    const { sport } = useSport();
+
+    console.log(sport);
 
     const menuItems = [
-        {label: "홈", icon: <Home/>, key: "home", href: "/"},
-        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/competition"},
-        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/painpoint"},
+        {label: "홈", icon: <Home/>, key: "home", href: "/", categoryDepth1: "all"},
+        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/competition", categoryDepth1: "cycle"},
+        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/painpoint", categoryDepth1: "cycle"},
         // {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
-        // {label: "마이룸", icon: <Checkroom/>, key: "notifications", href: "/myroom"},
+        {label: "100대명산", icon: <Checkroom/>, key: "mountain-top-100", href: "/mountain-top-100", categoryDepth1: "mountain"},
     ];
+
+    const filteredMenuItems = menuItems.filter((item) => {
+        if (sport === "hiking") {
+            return item.categoryDepth1 === "all" || item.categoryDepth1 === "mountain";
+        } else if (sport === "cycling") {
+            return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycle";
+        }
+        // 기본값(혹은 다른 sport 값이 있을 때)
+        return item.categoryDepth1 === "all";
+    });
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
@@ -48,11 +62,11 @@ const TopNavigation: React.FC = () => {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
             <Typography variant="h6" sx={{my: 2}}>
-                BMU
+                Grapheople
             </Typography>
             <Divider/>
             <List>
-                {menuItems.map((item) => (
+                {filteredMenuItems.map((item) => (
                     <ListItem key={item.key} disablePadding>
                         <ListItemButton
                             sx={{textAlign: 'center'}}>
@@ -94,10 +108,10 @@ const TopNavigation: React.FC = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                            BuildMeUp
+                            Grapheople
                         </Typography>
                         <Box sx={{flexGrow: 1, display: 'flex'}}>
-                            {menuItems.map((menu, index) => (
+                            {filteredMenuItems.map((menu, index) => (
                                 <React.Fragment key={menu.key}>
                                     <Button
                                         sx={{my: 2, color: 'white', display: 'block'}}

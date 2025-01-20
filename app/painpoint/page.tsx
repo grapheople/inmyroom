@@ -23,11 +23,11 @@ const painPointGroups: PainPointGroup[] = [
                     },
                     {
                         "cause": "과도하게 숙인 자세로 머리와 경추 정렬이 틀어짐",
-                        "solution": "수시로 수분 및 탄수화물 보충"
+                        "solution": "목·어깨 스트레칭을 자주 실시"
                     },
                     {
                         "cause": "라이딩 중 탈수 또는 저혈당 상태",
-                        "solution": "목·어깨 스트레칭을 자주 실시"
+                        "solution": "수시로 수분 및 탄수화물 보충"
                     }
                 ]
             }
@@ -50,10 +50,6 @@ const painPointGroups: PainPointGroup[] = [
                     {
                         "cause": "장시간 전방 주시로 인한 목 근육 피로",
                         "solution": "주기적으로 목·어깨 돌리기(스트레칭)"
-                    },
-                    {
-                        "cause": "코어·상체 근력 부족으로 승모근에만 하중 집중",
-                        "solution": "승모근·목 주변 근력 강화(가벼운 덤벨 슈러그 등)"
                     }
                 ]
             }
@@ -71,19 +67,15 @@ const painPointGroups: PainPointGroup[] = [
                 "causeAndSolution": [
                     {
                         "cause": "과도하게 숙인 자세로 어깨 근육 긴장",
-                        "solution": "핸들바 높이·폭·각도 재조정 (어깨 부담 최소화)"
+                        "solution": "주기적으로 어깨 스트레칭으로 근육 긴장 완화"
                     },
                     {
                         "cause": "핸들바 그립·각도가 체형에 맞지 않아 어깨에 부담",
-                        "solution": "회전근개 스트레칭 및 가벼운 어깨 강화 운동"
+                        "solution": "핸들바 높이·폭·각도 재조정 (어깨 부담 최소화)"
                     },
                     {
                         "cause": "팔·어깨 근력이 약해 쉽게 피로 누적",
-                        "solution": "라이딩 중간에 잠깐씩 일어서거나 팔 돌리기"
-                    },
-                    {
-                        "cause": "한쪽으로 비틀어진 자세 유지 혹은 체중 쏠림",
-                        "solution": "주기적으로 어깨 스트레칭으로 근육 긴장 완화"
+                        "solution": "회전근개 스트레칭 및 가벼운 어깨 강화 운동"
                     }
                 ]
             }
@@ -99,14 +91,6 @@ const painPointGroups: PainPointGroup[] = [
                 "id": "upper-back",
                 "name": "등(흉추) 통증",
                 "causeAndSolution": [
-                    {
-                        "cause": "등을 장시간 굽힌 채 고정하여 근육 경직",
-                        "solution": "수시로 등 스트레칭(가슴 열기, 흉추 롤링 등)"
-                    },
-                    {
-                        "cause": "호흡이 얕아지면서 상체 전반 피로 증가",
-                        "solution": "어깨·등 근력 강화(능형근, 승모근 운동)"
-                    },
                     {
                         "cause": "코어·등 근력 부족으로 자세 유지 어려움",
                         "solution": "라이딩 자세 교정(어깨 내리고, 등을 덜 구부리기)"
@@ -315,11 +299,11 @@ const painPointGroups: PainPointGroup[] = [
                     },
                     {
                         "cause": "장시간 라이딩으로 발바닥 피로 누적",
-                        "solution": "케이던스를 높여 발목 부담 완화"
+                        "solution": "라이딩 후 발목·발 마사지, 충분한 휴식"
                     },
                     {
                         "cause": "무거운 기어 사용 시 발목에 부하 집중",
-                        "solution": "라이딩 후 발목·발 마사지, 충분한 휴식"
+                        "solution": "케이던스를 높여 발목 부담 완화"
                     }
                 ]
             }

@@ -3,16 +3,24 @@
 import React, { useState } from "react";
 import { Grid2, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import Box from "@mui/material/Box";
-import Link from "next/link";
-import WarningIcon from "@mui/icons-material/Warning"; // Import an icon
+import { useSport } from "@/context/SportProvider";
+import { useRouter } from "next/navigation";
 
 const ResponsiveDetailView: React.FC = () => {
+    const router = useRouter();
+    const { sport, setSport } = useSport();
     const [open, setOpen] = useState(false); // State to control dialog visibility
 
     const handleRunningClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        e.preventDefault(); // Prevent the default page navigation
-        setOpen(true); // Open the dialog
+        setSport("hiking");
+        router.push("/mountain-top-100");
     };
+
+    const handleCyclingClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault(); // Prevent the default page navigation
+        setSport("cycling");
+        router.push("/competition");
+    }
 
     const handleClose = () => {
         setOpen(false); // Close the dialog
@@ -71,7 +79,7 @@ const ResponsiveDetailView: React.FC = () => {
                             />
                         </a>
                         <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
-                            Running
+                            Hiking
                         </Typography>
                     </Box>
                 </Grid2>
@@ -87,7 +95,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <a href="/competition">
+                        <a onClick={handleCyclingClick}>
                             <img
                                 src="/cycling.webp"
                                 alt="Cycling Thumbnail"

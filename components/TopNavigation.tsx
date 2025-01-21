@@ -116,7 +116,7 @@ const TopNavigation: React.FC = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                            Grapheople
+                            Graphy
                         </Typography>
                         <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center'}}>
                             {filteredMenuItems.map((menu, index) => (

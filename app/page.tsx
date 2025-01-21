@@ -19,7 +19,7 @@ const ResponsiveDetailView: React.FC = () => {
     const handleCyclingClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault(); // Prevent the default page navigation
         setSport("cycling");
-        router.push("/cycle/competition");
+        router.push("/cycling/competition");
     }
 
     const handleClose = () => {

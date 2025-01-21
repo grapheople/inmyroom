@@ -5,17 +5,17 @@ import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {AssistWalker, Checkroom, EmojiEvents, Home} from "@mui/icons-material";
 import {useSport} from "@/context/SportProvider";
+import {number} from "prop-types";
 
 
 const BottomTab: React.FC = () => {
-    const [value, setValue] = useState(0);
     const router = useRouter(); // Next.js 라우팅 hook
     const {sport, setSport} = useSport();
 
     const menuItems = [
         {label: "홈", icon: <Home/>, key: "home", href: "/", categoryDepth1: "all"},
-        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/cycle/competition", categoryDepth1: "cycle"},
-        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/cycle/painpoint", categoryDepth1: "cycle"},
+        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/cycling/competition", categoryDepth1: "cycling"},
+        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/cycling/painpoint", categoryDepth1: "cycling"},
         // {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
         {
@@ -31,13 +31,15 @@ const BottomTab: React.FC = () => {
         if (sport === "hiking") {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "mountain";
         } else if (sport === "cycling") {
-            return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycle";
+            return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycling";
         } else if(sport === "home") {
             return item.categoryDepth1 === "all";
         }
         // 기본값(혹은 다른 sport 값이 있을 때)
         return item.categoryDepth1 === "all";
     });
+
+    const [value, setValue] = useState(0);
 
     const movePage = (path: string) => {
         if(path === "/") {

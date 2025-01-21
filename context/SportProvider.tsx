@@ -1,20 +1,24 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, {createContext, useContext, useState} from "react";
 
-type Sport = "hiking" | "cycling";
 
 interface SportContextValue {
-    sport: Sport;
+    sport: string;
     setSport: (sport: string) => void;
 }
 
 const SportContext = createContext<SportContextValue | undefined>(undefined);
 
-export function SportProvider({ children }: { children: React.ReactNode }) {
-    const [sport, setSport] = useState<Sport>("cycling"); // 기본값 "등산"
+export function SportProvider({children}: { children: React.ReactNode }) {
+    const [sport, setSport] = useState<string>(() => {
+        const path = window.location.pathname.split('/')[1];
+        if (path === "hiking") return "hiking";
+        if (path === "cycling") return "cycling";
+        return "home";
+    });
 
     return (
-        <SportContext.Provider value={{ sport, setSport }}>
+        <SportContext.Provider value={{sport, setSport}}>
             {children}
         </SportContext.Provider>
     );

@@ -1,6 +1,6 @@
 "use client";
-import React, {createContext, useContext, useState, useEffect} from "react";
 
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface SportContextValue {
     sport: string;
@@ -9,16 +9,28 @@ interface SportContextValue {
 
 const SportContext = createContext<SportContextValue | undefined>(undefined);
 
-export function SportProvider({children}: { children: React.ReactNode }) {
-    const [sport, setSport] = useState<string>(() => {
-        const path = window.location.pathname.split('/')[1];
-        if (path === "hiking") return "hiking";
-        if (path === "cycling") return "cycling";
-        return "home";
-    });
+export function SportProvider({ children }: { children: React.ReactNode }) {
+    const [sport, setSport] = useState<string>("home");
+
+    useEffect(() => {
+        // 클라이언트 환경 확인
+        if (typeof window !== "undefined") {
+            const path = window.location.pathname;
+            if (path.split("/").length > 1) {
+                const sport = path.split("/")[1];
+                if (sport === "hiking") {
+                    setSport("hiking");
+                } else if (sport === "cycling") {
+                    setSport("cycling");
+                } else {
+                    setSport("home");
+                }
+            }
+        }
+    }, []);
 
     return (
-        <SportContext.Provider value={{sport, setSport}}>
+        <SportContext.Provider value={{ sport, setSport }}>
             {children}
         </SportContext.Provider>
     );

@@ -5,13 +5,13 @@ type Sport = "hiking" | "cycling";
 
 interface SportContextValue {
     sport: Sport;
-    setSport: (sport: Sport) => void;
+    setSport: (sport: string) => void;
 }
 
 const SportContext = createContext<SportContextValue | undefined>(undefined);
 
 export function SportProvider({ children }: { children: React.ReactNode }) {
-    const [sport, setSport] = useState<Sport>("hiking"); // 기본값 "등산"
+    const [sport, setSport] = useState<Sport>("cycling"); // 기본값 "등산"
 
     return (
         <SportContext.Provider value={{ sport, setSport }}>

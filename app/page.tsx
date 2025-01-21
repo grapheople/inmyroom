@@ -13,13 +13,13 @@ const ResponsiveDetailView: React.FC = () => {
 
     const handleRunningClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         setSport("hiking");
-        router.push("/mountain-top-100");
+        router.push("/hiking/mountain-top-100");
     };
 
     const handleCyclingClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault(); // Prevent the default page navigation
         setSport("cycling");
-        router.push("/competition");
+        router.push("/cycle/competition");
     }
 
     const handleClose = () => {

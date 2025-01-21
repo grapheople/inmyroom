@@ -1,16 +1,7 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
-import {
-    BottomNavigation,
-    BottomNavigationAction,
-    Divider,
-    Drawer,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText
-} from "@mui/material";
+import React from "react";
+import {Divider, Drawer, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import {useRouter} from "next/navigation";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,22 +13,27 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import {AssistWalker, Checkroom, EmojiEvents, Home} from "@mui/icons-material";
 import {useSport} from "@/context/SportProvider";
+import {isGenerator} from "motion-dom";
 
 
 const TopNavigation: React.FC = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const router = useRouter(); // Next.js 라우팅 hook
-    const { sport } = useSport();
-
-    console.log(sport);
+    const {sport, setSport} = useSport();
 
     const menuItems = [
         {label: "홈", icon: <Home/>, key: "home", href: "/", categoryDepth1: "all"},
-        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/competition", categoryDepth1: "cycle"},
-        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/painpoint", categoryDepth1: "cycle"},
+        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/cycle/competition", categoryDepth1: "cycle"},
+        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/cycle/painpoint", categoryDepth1: "cycle"},
         // {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
-        {label: "100대명산", icon: <Checkroom/>, key: "mountain-top-100", href: "/mountain-top-100", categoryDepth1: "mountain"},
+        {
+            label: "100대명산",
+            icon: <Checkroom/>,
+            key: "mountain-top-100",
+            href: "/hiking/mountain-top-100",
+            categoryDepth1: "mountain"
+        },
     ];
 
     const filteredMenuItems = menuItems.filter((item) => {
@@ -45,6 +41,8 @@ const TopNavigation: React.FC = () => {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "mountain";
         } else if (sport === "cycling") {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycle";
+        } else if(sport === "home") {
+            return item.categoryDepth1 === "all";
         }
         // 기본값(혹은 다른 sport 값이 있을 때)
         return item.categoryDepth1 === "all";
@@ -56,6 +54,9 @@ const TopNavigation: React.FC = () => {
     const drawerWidth = 240;
 
     const movePage = (path: string) => {
+        if(path === "/") {
+            setSport("home");
+        }
         router.push(path); // 홈
     }
 
@@ -66,11 +67,13 @@ const TopNavigation: React.FC = () => {
             </Typography>
             <Divider/>
             <List>
-                {filteredMenuItems.map((item) => (
-                    <ListItem key={item.key} disablePadding>
+                {filteredMenuItems.map((menu) => (
+                    <ListItem key={menu.key} disablePadding>
                         <ListItemButton
-                            sx={{textAlign: 'center'}}>
-                            <ListItemText primary={item.label}/>
+                            sx={{textAlign: 'center'}}
+                            onClick={() => movePage(menu.href)}
+                        >
+                            <ListItemText primary={menu.label}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -119,7 +122,7 @@ const TopNavigation: React.FC = () => {
                                     >
                                         {menu.label}
                                     </Button>
-                                    {index < menuItems.length - 1 && (
+                                    {index < filteredMenuItems.length - 1 && (
                                         <Divider
                                             orientation="vertical"
                                             flexItem

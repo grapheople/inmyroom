@@ -68,7 +68,7 @@ const TopNavigation: React.FC = () => {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
             <Typography variant="h6" sx={{my: 2}}>
-                Grapheople
+                Graphy
             </Typography>
             <Divider/>
             <List>

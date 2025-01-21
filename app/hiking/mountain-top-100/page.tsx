@@ -5,14 +5,14 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    Box,
+    Button,
+    Divider,
     List,
     ListItem,
     ListItemText,
-    Typography,
     TextField,
-    Box,
-    Divider,
-    Button,
+    Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -21,7 +21,6 @@ import useMediaQuery from "@mui/material/useMediaQuery"; // MUI 반응형 유틸
 import {sendGTMEvent} from "@next/third-parties/google";
 
 import {mountainData} from "@/data/mountains";
-import Head from "next/head";
 
 const ResponsiveDetailView: React.FC = () => {
     const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -101,7 +100,7 @@ const ResponsiveDetailView: React.FC = () => {
                                     style={{margin: "0 10px", height: "40px"}}
                                 />
                                 <ListItemText
-                                    primary={`${item.elevation}`}
+                                    primary={`${item.elevation}m`}
                                     secondary={`해발 고도`}
                                     style={{flex: 1}}
                                 />
@@ -127,7 +126,13 @@ const ResponsiveDetailView: React.FC = () => {
                             >
                                 <Typography variant="h6">{item.name}</Typography>
                                 <Typography>
+                                    <strong>해발 고도:</strong> {item.elevation}m
+                                </Typography>
+                                <Typography>
                                     <strong>위치:</strong> {item.location}
+                                </Typography>
+                                <Typography>
+                                    <strong>소개:</strong> {item.description}
                                 </Typography>
                                 <Box
                                     sx={{

@@ -19,16 +19,14 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     return (
         <html lang="en">
         <head>
-            <title>Build Me Up</title>
+            <title>Graphy - 모험가를 위한 안내서</title>
             <meta charSet="UTF-8"/>
-            <meta name="description" content="등산 & 싸이클 운동 정보"/>
+            <meta name="description" content="등산 & 싸이클 운동 정보 모험가를 위한 안내서"/>
             <meta name="keywords" content="등산, 싸이클, 운동, 대회, 그란폰도"/>
-
-            <meta name="author" content="grapheople"/>
-            <meta property="og:title" content="Grapheople"/>
+            <meta name="author" content="Graphy"/>
+            <meta property="og:title" content="Graphy"/>
             <meta property="og:image" content="/thumbnail.webp"/>
-
-            <meta property="og:description" content="등산 & 싸이클 운동 정보"/>
+            <meta property="og:description" content="모험가를 위한 안내서 - 등산 & 싸이클 운동 정보"/>
             <meta property="og:image:width" content="1200"/>
             <meta property="og:image:height" content="630"/>
             <meta property="og:type" content="website"/>
@@ -42,9 +40,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                     <CssBaseline/>
                     <Box sx={{display: "flex"}}>
                         {!isMobile ? <TopNavigation/> : null}
-                        <Container maxWidth={"md"}>
+                        <Container maxWidth={"md"} disableGutters={isMobile}>
                             <Box sx={{
-                                pt: {xs: 0 , sm: "64px"}
+                                pt: {xs: 0 , sm: "80px"}
                             }}>
                                 {props.children}
                             </Box>

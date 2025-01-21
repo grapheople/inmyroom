@@ -67,7 +67,6 @@ const ResponsiveDetailView: React.FC = () => {
                             key={item.id}
                             expanded={expandedId === item.id}
                             onChange={() => handleToggle(item.id)}
-                            sx={{padding: 2}}
                         >
                             <AccordionSummary
                                 expandIcon={

@@ -13,6 +13,7 @@ import {useMediaQuery} from "@mui/material";
 import "@/app/globals.css";
 import BottomTab from "@/components/BottomTab";
 import {SportProvider} from "@/context/SportProvider";
+import {GoogleAdSense} from "@/components/GoogleAdSense";
 
 export default function RootLayout(props: { children: React.ReactNode }) {
     const isMobile = useMediaQuery("(max-width:600px)"); // 모바일 여부 체크
@@ -30,7 +31,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <meta property="og:image:width" content="1200"/>
             <meta property="og:image:height" content="630"/>
             <meta property="og:type" content="website"/>
-
+            <GoogleAdSense />
         </head>
         <GoogleTagManager gtmId="GTM-TH4TZR99"/>
         <body>

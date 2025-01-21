@@ -37,7 +37,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <GoogleTagManager gtmId="GTM-TH4TZR99"/>
         <body>
         <SportProvider>
-            <AppRouterCacheProvider options={{enableCssLayer: true}}>
+            <AppRouterCacheProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline/>
                     <Box sx={{display: "flex"}}>

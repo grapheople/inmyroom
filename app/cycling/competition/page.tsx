@@ -67,6 +67,7 @@ const ResponsiveDetailView: React.FC = () => {
                             key={item.id}
                             expanded={expandedId === item.id}
                             onChange={() => handleToggle(item.id)}
+                            sx={{padding: 2}}
                         >
                             <AccordionSummary
                                 expandIcon={
@@ -100,7 +101,7 @@ const ResponsiveDetailView: React.FC = () => {
                                     <Divider
                                         orientation="vertical"
                                         flexItem
-                                        style={{ margin: "0 10px", height: "24px" }}
+                                        style={{ margin: "0 10px"}}
                                     />
                                     <ListItemText
                                         primary={`${
@@ -114,7 +115,7 @@ const ResponsiveDetailView: React.FC = () => {
                                     <Divider
                                         orientation="vertical"
                                         flexItem
-                                        style={{ margin: "0 10px", height: "24px" }}
+                                        style={{ margin: "0 10px"}}
                                     />
                                     <ListItemText
                                         primary={`${

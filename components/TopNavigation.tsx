@@ -22,7 +22,13 @@ const TopNavigation: React.FC = () => {
 
     const menuItems = [
         {label: "홈", icon: <Home/>, key: "home", href: "/", categoryDepth1: "all"},
-        {label: "대회", icon: <EmojiEvents/>, key: "competition", href: "/cycling/competition", categoryDepth1: "cycling"},
+        {
+            label: "대회",
+            icon: <EmojiEvents/>,
+            key: "competition",
+            href: "/cycling/competition",
+            categoryDepth1: "cycling"
+        },
         {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/cycling/painpoint", categoryDepth1: "cycling"},
         // {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
@@ -112,11 +118,11 @@ const TopNavigation: React.FC = () => {
                         >
                             Grapheople
                         </Typography>
-                        <Box sx={{flexGrow: 1, display: 'flex'}}>
+                        <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center'}}>
                             {filteredMenuItems.map((menu, index) => (
                                 <React.Fragment key={menu.key}>
                                     <Button
-                                        sx={{my: 2, color: 'white', display: 'block'}}
+                                        sx={{my: 2, color: 'white', display: 'block', fontSize: '1.2rem'}}
                                         onClick={() => movePage(menu.href)}
                                     >
                                         {menu.label}
@@ -124,12 +130,9 @@ const TopNavigation: React.FC = () => {
                                     {index < filteredMenuItems.length - 1 && (
                                         <Divider
                                             orientation="vertical"
-                                            flexItem
                                             sx={{
-                                                bgcolor: 'rgba(255, 255, 255, 0.5)', // 디바이더 색상
-                                                width: '2px', // 디바이더 두께
-                                                height: 'auto', // 세로로 채우기
-                                                mx: 1, // 좌우 여백
+                                                backgroundColor: 'white',
+                                                height: '20px', // 세로로 채우기
                                             }}
                                         />
                                     )}

@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {useRouter} from "next/navigation";
-import {AssistWalker, Checkroom, EmojiEvents, Home} from "@mui/icons-material";
+import {AssistWalker, Checkroom, EmojiEvents, Home, Landscape} from "@mui/icons-material";
 import {useSport} from "@/context/SportProvider";
 import {number} from "prop-types";
 
@@ -20,7 +20,7 @@ const BottomTab: React.FC = () => {
         // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
         {
             label: "100대명산",
-            icon: <Checkroom/>,
+            icon: <Landscape/>,
             key: "mountain-top-100",
             href: "/hiking/mountain-top-100",
             categoryDepth1: "mountain"

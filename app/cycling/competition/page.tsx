@@ -55,6 +55,14 @@ const ResponsiveDetailView: React.FC = () => {
                             return aDate.getTime() - bDate.getTime() || a.id - b.id;
                         }
 
+                        if(a.eventStartDate) {
+                            return -1
+                        }
+
+                        if (b.eventStartDate) {
+                            return 1;
+                        }
+
                         if (!aDate && !bDate) {
                             return a.id - b.id;
                         }
@@ -105,7 +113,7 @@ const ResponsiveDetailView: React.FC = () => {
                                     <ListItemText
                                         primary={`${
                                             item.eventStartDate
-                                                ? moment(item.eventStartDate).format("YYYY. MM. DD")
+                                                ? item.upcoming ? moment(item.eventStartDate).format("YYYY. MM.") + " (예정)" : moment(item.eventStartDate).format("YYYY. MM. DD")
                                                 : "미정"
                                         }`}
                                         secondary={`대회일`}

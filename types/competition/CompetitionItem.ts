@@ -14,5 +14,6 @@ export interface CompetitionItem {
     goal2: string | null;
     goal3: string | null;
     goal4: string | null;
+    upcoming: boolean;
     imgs: string[];
 }

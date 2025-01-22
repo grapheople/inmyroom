@@ -16,6 +16,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": "획득고도 1500m",
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
@@ -33,6 +34,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": "획득고도 1594m",
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": [
         ]
     },
@@ -51,6 +53,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
@@ -68,6 +71,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": "획득고도 2380m",
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
@@ -85,6 +89,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": "획득고도 1000m",
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
@@ -102,6 +107,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": "획득고도 3670m",
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
@@ -119,6 +125,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
@@ -136,23 +143,25 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
         "imgs": []
     },
     {
         "id": 9,
         "year": "2025",
         "name": "춘천 캄파놀로 그란폰도",
-        "host": "",
-        "location": "",
-        "eventStartDate": null,
+        "host": "춘천시",
+        "location": "송암스포츠타운",
+        "eventStartDate": new Date("2025-10-19T09:00:00"),
         "regStartDate": null,
         "regEndDate": null,
-        "link": "",
-        "fee": 0,
-        "goal1": null,
-        "goal2": null,
+        "link": "https://www.campagnologranfondo.kr/",
+        "fee": 70000,
+        "goal1": "거리 123km",
+        "goal2": "획득고도 2,634m",
         "goal3": null,
         "goal4": null,
+        "upcoming": true,
         "imgs": []
     },
     {
@@ -170,6 +179,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": true,
         "imgs": []
     },
     {
@@ -187,6 +197,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": true,
         "imgs": []
     },
     {
@@ -204,6 +215,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": true,
         "imgs": []
     },
     {
@@ -221,6 +233,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
+        "upcoming": true,
         "imgs": []
     },
     {
@@ -238,6 +251,25 @@ export const competitionData: CompetitionItem[] = [
         "goal2": "획득고도 3670m",
         "goal3": null,
         "goal4": null,
+        "upcoming": false,
+        "imgs": []
+    },
+    {
+        "id": 15,
+        "year": "2025",
+        "name": "해남그란폰도",
+        "host": "해남군",
+        "location": "해남우슬경기장",
+        "eventStartDate": new Date("2025-11-20T08:00:00"),
+        "regStartDate": null,
+        "regEndDate": null,
+        "link": "https://www.thebike.co.kr/bbs/board.php?bo_table=10&wr_id=11391",
+        "fee": 60000,
+        "goal1": "거리 95km",
+        "goal2": "획득고도 741m",
+        "goal3": null,
+        "goal4": null,
+        "upcoming": true,
         "imgs": []
     }
 ];

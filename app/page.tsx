@@ -66,7 +66,7 @@ const ResponsiveDetailView: React.FC = () => {
                     <Box sx={{ textAlign: "center" }}>
                         <a onClick={handleRunningClick}>
                             <img
-                                src="/running.webp"
+                                src="/hiking_2.webp"
                                 alt="Running Thumbnail"
                                 style={{
                                     width: "100%",
@@ -97,7 +97,7 @@ const ResponsiveDetailView: React.FC = () => {
                     <Box sx={{ textAlign: "center" }}>
                         <a onClick={handleCyclingClick}>
                             <img
-                                src="/cycling.webp"
+                                src="/cycling_2.webp"
                                 alt="Cycling Thumbnail"
                                 style={{
                                     width: "100%",

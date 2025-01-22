@@ -143,7 +143,7 @@ export const competitionData: CompetitionItem[] = [
         "goal2": null,
         "goal3": null,
         "goal4": null,
-        "upcoming": false,
+        "upcoming": true,
         "imgs": []
     },
     {

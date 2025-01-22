@@ -42,32 +42,25 @@ const ResponsiveDetailView: React.FC = () => {
             <List>
                 {competitionData
                     .sort((a, b) => {
-                        const aDate = a.regStartDate;
-                        const bDate = b.regStartDate;
-
-                        if (aDate && bDate) {
-                            const aDiff = Math.abs(aDate.getTime() - today.getTime());
-                            const bDiff = Math.abs(bDate.getTime() - today.getTime());
-
-                            if (aDiff !== bDiff) {
-                                return aDiff - bDiff;
-                            }
-                            return aDate.getTime() - bDate.getTime() || a.id - b.id;
+                        // regStartDate가 null인 경우 뒤로 정렬
+                        if (a.regStartDate && b.regStartDate) {
+                            // 1. regStartDate 기준 정렬
+                            const dateCompare = a.regStartDate.getTime() - b.regStartDate.getTime();
+                            if (dateCompare !== 0) return dateCompare;
                         }
+                        
+                        if (!a.eventStartDate) return 1;
+                        if (!b.eventStartDate) return -1;
 
-                        if(a.eventStartDate) {
-                            return -1
-                        }
+                        // 2. eventStartDate 기준 정렬
+                        const dateCompare2 = a.eventStartDate.getTime() - b.eventStartDate.getTime();
+                        if (dateCompare2 !== 0) return dateCompare2;
 
-                        if (b.eventStartDate) {
-                            return 1;
-                        }
+                        // 3. upcoming이 false인 항목을 우선 정렬
+                        if (a.upcoming !== b.upcoming) return Number(a.upcoming) - Number(b.upcoming);
 
-                        if (!aDate && !bDate) {
-                            return a.id - b.id;
-                        }
-
-                        return aDate ? -1 : 1;
+                        // 4. id 기준 정렬
+                        return a.id - b.id;
                     })
                     .map((item) => (
                         <Accordion

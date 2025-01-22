@@ -5,19 +5,34 @@ import { Grid2, Typography, Dialog, DialogTitle, DialogContent, DialogActions, B
 import Box from "@mui/material/Box";
 import { useGlobalContext } from "@/context/GlobalContextProvider";
 import { useRouter } from "next/navigation";
+import {sendGTMEvent} from "@next/third-parties/google";
+import {margin} from "@mui/system";
 
 const ResponsiveDetailView: React.FC = () => {
     const router = useRouter();
-    const { sport, setSport } = useGlobalContext();
+    const {sport, setSport, selectedLanguage, setSelectedLanguage} = useGlobalContext();
     const [open, setOpen] = useState(false); // State to control dialog visibility
 
-    const handleRunningClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const handleHikingClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        sendGTMEvent({
+            event: "home_hiking_click",
+            category: "competition",
+            action: "toggle",
+            label: "hiking",
+        });
         setSport("hiking");
         router.push("/hiking/mountain-top-100");
     };
 
     const handleCyclingClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        e.preventDefault(); // Prevent the default page navigation
+        e.preventDefault();
+        sendGTMEvent({
+            event: "home_cycle_click",
+            category: "competition",
+            action: "toggle",
+            label: "cycle",
+        });
         setSport("cycling");
         router.push("/cycling/competition");
     }
@@ -40,7 +55,7 @@ const ResponsiveDetailView: React.FC = () => {
         >
             {/* Title Section */}
             <Typography sx={{ marginBottom: 4, fontSize: 30, textAlign: "center" }}>
-                운동을 선택하세요!🏃‍♂️🚴‍♂️
+                {selectedLanguage === '한국어' ? '운동을 선택하세요!' : 'Choose your workout!'}🏃‍♂️🚴‍♂️
             </Typography>
 
             {/* Images Section */}
@@ -64,7 +79,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <a onClick={handleRunningClick}>
+                        <a onClick={handleHikingClick}>
                             <img
                                 src="/hiking_2.webp"
                                 alt="Running Thumbnail"
@@ -78,8 +93,8 @@ const ResponsiveDetailView: React.FC = () => {
                                 }}
                             />
                         </a>
-                        <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
-                            Hiking
+                        <Typography variant="subtitle1" sx={{ marginTop: 1 }} onClick={handleHikingClick}>
+                            {selectedLanguage === '한국어' ? '등산' : 'Hiking'}
                         </Typography>
                     </Box>
                 </Grid2>
@@ -109,12 +124,15 @@ const ResponsiveDetailView: React.FC = () => {
                                 }}
                             />
                         </a>
-                        <Typography variant="subtitle1" sx={{ marginTop: 1 }}>
-                            Cycling
+                        <Typography variant="subtitle1" sx={{ marginTop: 1 }} onClick={handleCyclingClick}>
+                            {selectedLanguage === '한국어' ? '싸이클' : 'Cycling'}
                         </Typography>
                     </Box>
                 </Grid2>
             </Grid2>
+            <Box sx={{marginTop: '100px'}}>
+                Contact <a className="cursor-pointer text-blue-500" href={`mailto:grapheople@gmail.com`}>grapheople@gmail.com</a>
+            </Box>
 
             {/* Dialog for "준비 중입니다" */}
             <Dialog

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem } from "@mui/material";
-import { useRouter } from "next/navigation";
+import React, {useState} from "react";
+import {Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem} from "@mui/material";
+import {useRouter} from "next/navigation";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,14 +10,14 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
-import { AssistWalker, Checkroom, EmojiEvents, Home } from "@mui/icons-material";
-import { useGlobalContext } from "@/context/GlobalContextProvider";
+import {useGlobalContext} from "@/context/GlobalContextProvider";
 import Container from "@mui/material/Container";
+import {menuItems} from "@/data/menuItems";
 
 const TopNavigation: React.FC = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const router = useRouter();
-    const { sport, setSport, selectedLanguage, setSelectedLanguage } = useGlobalContext();
+    const {sport, setSport, selectedLanguage, setSelectedLanguage} = useGlobalContext();
 
     // Language Dropdown State
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -34,22 +34,16 @@ const TopNavigation: React.FC = () => {
         setAnchorEl(null); // 드롭다운 닫기
     };
 
-    const menuItems = [
-        { label: "홈", icon: <Home />, key: "home", href: "/", categoryDepth1: "all" },
-        { label: "대회", icon: <EmojiEvents />, key: "competition", href: "/cycling/competition", categoryDepth1: "cycling" },
-        { label: "통증", icon: <AssistWalker />, key: "painpoint", href: "/cycling/painpoint", categoryDepth1: "cycling" },
-        {
-            label: "100대명산",
-            icon: <Checkroom />,
-            key: "mountain-top-100",
-            href: "/hiking/mountain-top-100",
-            categoryDepth1: "mountain",
-        },
-    ];
+    const movePage = (path: string) => {
+        if(path === "/") {
+            setSport("home");
+        }
+        router.push(path); // 홈
+    }
 
     const filteredMenuItems = menuItems.filter((item) => {
         if (sport === "hiking") {
-            return item.categoryDepth1 === "all" || item.categoryDepth1 === "mountain";
+            return item.categoryDepth1 === "all" || item.categoryDepth1 === "hiking";
         } else if (sport === "cycling") {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycling";
         } else if (sport === "home") {
@@ -63,19 +57,19 @@ const TopNavigation: React.FC = () => {
     };
 
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
-                Grapheople
+        <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
+            <Typography variant="h6" sx={{my: 2}}>
+                Graphy
             </Typography>
-            <Divider />
+            <Divider/>
             <List>
                 {filteredMenuItems.map((menu) => (
                     <ListItem key={menu.key} disablePadding>
                         <ListItemButton
-                            sx={{ textAlign: 'center' }}
-                            onClick={() => router.push(menu.href)}
+                            sx={{textAlign: 'center'}}
+                            onClick={() => movePage(menu.href)}
                         >
-                            <ListItemText primary={menu.label} />
+                            <ListItemText primary={selectedLanguage === '한국어' ? menu.label : menu.labelEn}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -96,7 +90,7 @@ const TopNavigation: React.FC = () => {
                             onClick={handleDrawerToggle}
                             color="inherit"
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                         <Typography
                             variant="h6"
@@ -115,14 +109,14 @@ const TopNavigation: React.FC = () => {
                         >
                             Graphy
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: "center" }}>
+                        <Box sx={{flexGrow: 1, display: 'flex', alignItems: "center"}}>
                             {filteredMenuItems.map((menu, index) => (
                                 <React.Fragment key={menu.key}>
                                     <Button
                                         sx={{my: 2, color: 'white', display: 'block', fontSize: '1.1rem'}}
-                                        onClick={() => router.push(menu.href)}
+                                        onClick={() => movePage(menu.href)}
                                     >
-                                        {menu.label}
+                                        {selectedLanguage === '한국어' ? menu.label : menu.labelEn}
                                     </Button>
                                     {index < filteredMenuItems.length - 1 && (
                                         <Divider
@@ -168,7 +162,6 @@ const TopNavigation: React.FC = () => {
                         >
                             <MenuItem onClick={() => handleLanguageClose("한국어")}>한국어</MenuItem>
                             <MenuItem onClick={() => handleLanguageClose("English")}>English</MenuItem>
-                            <MenuItem onClick={() => handleLanguageClose("Español")}>Español</MenuItem>
                         </Menu>
                     </Toolbar>
                 </Container>
@@ -182,7 +175,7 @@ const TopNavigation: React.FC = () => {
                         keepMounted: true,
                     }}
                     sx={{
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: 240},
                     }}
                 >
                     {drawer}

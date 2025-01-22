@@ -25,7 +25,6 @@ import { competitionData } from "@/data/granfondo";
 const ResponsiveDetailView: React.FC = () => {
     const [expandedId, setExpandedId] = useState<number | null>(null);
     const isMobile = useMediaQuery("(max-width:600px)"); // 반응형 브레이크포인트 설정
-    const today = new Date();
 
     const handleToggle = (id: number) => {
         sendGTMEvent({
@@ -48,7 +47,7 @@ const ResponsiveDetailView: React.FC = () => {
                             const dateCompare = a.regStartDate.getTime() - b.regStartDate.getTime();
                             if (dateCompare !== 0) return dateCompare;
                         }
-                        
+
                         if (!a.eventStartDate) return 1;
                         if (!b.eventStartDate) return -1;
 

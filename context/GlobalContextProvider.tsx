@@ -2,15 +2,19 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-interface SportContextValue {
+interface GlobalContextValue {
     sport: string;
     setSport: (sport: string) => void;
+    selectedLanguage: string;
+    setSelectedLanguage: (selectedLanguage: string) => void;
 }
 
-const SportContext = createContext<SportContextValue | undefined>(undefined);
+const GlobalContext = createContext<GlobalContextValue | undefined>(undefined);
 
-export function SportProvider({ children }: { children: React.ReactNode }) {
+export function GlobalContextProvider({ children }: { children: React.ReactNode }) {
     const [sport, setSport] = useState<string>("home");
+    const [selectedLanguage, setSelectedLanguage] = useState<string>("한국어");
+
 
     useEffect(() => {
         // 클라이언트 환경 확인
@@ -30,14 +34,14 @@ export function SportProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     return (
-        <SportContext.Provider value={{ sport, setSport }}>
+        <GlobalContext.Provider value={{ sport, setSport, selectedLanguage, setSelectedLanguage }}>
             {children}
-        </SportContext.Provider>
+        </GlobalContext.Provider>
     );
 }
 
-export function useSport() {
-    const context = useContext(SportContext);
+export function useGlobalContext() {
+    const context = useContext(GlobalContext);
     if (!context) {
         throw new Error("useSport 훅은 SportProvider 안에서만 사용 가능합니다.");
     }

@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import { Grid2, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useSport } from "@/context/SportProvider";
+import { useGlobalContext } from "@/context/GlobalContextProvider";
 import { useRouter } from "next/navigation";
 
 const ResponsiveDetailView: React.FC = () => {
     const router = useRouter();
-    const { sport, setSport } = useSport();
+    const { sport, setSport } = useGlobalContext();
     const [open, setOpen] = useState(false); // State to control dialog visibility
 
     const handleRunningClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

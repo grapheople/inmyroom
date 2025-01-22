@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import {useMediaQuery} from "@mui/material";
 import "@/app/globals.css";
 import BottomTab from "@/components/BottomTab";
-import {SportProvider} from "@/context/SportProvider";
+import {GlobalContextProvider} from "@/context/GlobalContextProvider";
 import {GoogleAdSense} from "@/components/GoogleAdSense";
 
 export default function RootLayout(props: { children: React.ReactNode }) {
@@ -35,7 +35,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         </head>
         <GoogleTagManager gtmId="GTM-TH4TZR99"/>
         <body>
-        <SportProvider>
+        <GlobalContextProvider>
             <AppRouterCacheProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline/>
@@ -52,7 +52,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                     </Box>
                 </ThemeProvider>
             </AppRouterCacheProvider>
-        </SportProvider>
+        </GlobalContextProvider>
         </body>
         <GoogleAnalytics gaId="G-1BNP8LR4S2"/>
         </html>

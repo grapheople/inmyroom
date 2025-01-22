@@ -1,43 +1,49 @@
 "use client";
 
-import React from "react";
-import {Divider, Drawer, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
-import {useRouter} from "next/navigation";
+import React, { useState } from "react";
+import { Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem } from "@mui/material";
+import { useRouter } from "next/navigation";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import {AssistWalker, Checkroom, EmojiEvents, Home} from "@mui/icons-material";
-import {useSport} from "@/context/SportProvider";
-
+import { AssistWalker, Checkroom, EmojiEvents, Home } from "@mui/icons-material";
+import { useGlobalContext } from "@/context/GlobalContextProvider";
+import Container from "@mui/material/Container";
 
 const TopNavigation: React.FC = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const router = useRouter(); // Next.js 라우팅 hook
-    const {sport, setSport} = useSport();
+    const router = useRouter();
+    const { sport, setSport, selectedLanguage, setSelectedLanguage } = useGlobalContext();
+
+    // Language Dropdown State
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleLanguageClose = (language: string | null) => {
+        if (language) {
+            setSelectedLanguage(language); // 언어 상태 업데이트
+        }
+        setAnchorEl(null); // 드롭다운 닫기
+    };
 
     const menuItems = [
-        {label: "홈", icon: <Home/>, key: "home", href: "/", categoryDepth1: "all"},
-        {
-            label: "대회",
-            icon: <EmojiEvents/>,
-            key: "competition",
-            href: "/cycling/competition",
-            categoryDepth1: "cycling"
-        },
-        {label: "통증", icon: <AssistWalker/>, key: "painpoint", href: "/cycling/painpoint", categoryDepth1: "cycling"},
-        // {label: "빌드업", icon: <FitnessCenter/>, key: "buildup", href: "/buildup"},
-        // {label: "커뮤니티", icon: <ForumOutlined/>, key: "search", href: "/community"},
+        { label: "홈", icon: <Home />, key: "home", href: "/", categoryDepth1: "all" },
+        { label: "대회", icon: <EmojiEvents />, key: "competition", href: "/cycling/competition", categoryDepth1: "cycling" },
+        { label: "통증", icon: <AssistWalker />, key: "painpoint", href: "/cycling/painpoint", categoryDepth1: "cycling" },
         {
             label: "100대명산",
-            icon: <Checkroom/>,
+            icon: <Checkroom />,
             key: "mountain-top-100",
             href: "/hiking/mountain-top-100",
-            categoryDepth1: "mountain"
+            categoryDepth1: "mountain",
         },
     ];
 
@@ -49,36 +55,27 @@ const TopNavigation: React.FC = () => {
         } else if (sport === "home") {
             return item.categoryDepth1 === "all";
         }
-        // 기본값(혹은 다른 sport 값이 있을 때)
         return item.categoryDepth1 === "all";
     });
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
-    const drawerWidth = 240;
-
-    const movePage = (path: string) => {
-        if (path === "/") {
-            setSport("home");
-        }
-        router.push(path); // 홈
-    }
 
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
-            <Typography variant="h6" sx={{my: 2}}>
-                Graphy
+        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+            <Typography variant="h6" sx={{ my: 2 }}>
+                Grapheople
             </Typography>
-            <Divider/>
+            <Divider />
             <List>
                 {filteredMenuItems.map((menu) => (
                     <ListItem key={menu.key} disablePadding>
                         <ListItemButton
-                            sx={{textAlign: 'center'}}
-                            onClick={() => movePage(menu.href)}
+                            sx={{ textAlign: 'center' }}
+                            onClick={() => router.push(menu.href)}
                         >
-                            <ListItemText primary={menu.label}/>
+                            <ListItemText primary={menu.label} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -93,19 +90,19 @@ const TopNavigation: React.FC = () => {
                     <Toolbar disableGutters>
                         <IconButton
                             size="large"
-                            aria-label="account of current user"
+                            aria-label="menu"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleDrawerToggle}
                             color="inherit"
                         >
-                            <MenuIcon/>
+                            <MenuIcon />
                         </IconButton>
                         <Typography
                             variant="h6"
                             noWrap
                             component="a"
-                            href="#app-bar-with-responsive-menu"
+                            href="#"
                             sx={{
                                 ml: 2,
                                 mr: 2,
@@ -118,12 +115,12 @@ const TopNavigation: React.FC = () => {
                         >
                             Graphy
                         </Typography>
-                        <Box sx={{flexGrow: 1, display: 'flex', alignItems: 'center'}}>
+                        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: "center" }}>
                             {filteredMenuItems.map((menu, index) => (
                                 <React.Fragment key={menu.key}>
                                     <Button
-                                        sx={{my: 2, color: 'white', display: 'block', fontSize: '1.2rem'}}
-                                        onClick={() => movePage(menu.href)}
+                                        sx={{my: 2, color: 'white', display: 'block', fontSize: '1.1rem'}}
+                                        onClick={() => router.push(menu.href)}
                                     >
                                         {menu.label}
                                     </Button>
@@ -137,8 +134,42 @@ const TopNavigation: React.FC = () => {
                                         />
                                     )}
                                 </React.Fragment>
+
                             ))}
                         </Box>
+                        {/* Language Dropdown */}
+                        <Button
+                            variant="outlined" // 버튼처럼 보이게
+                            aria-controls={open ? "language-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onClick={handleLanguageClick}
+                            sx={{
+                                borderColor: "white",
+                                color: "white",
+                                backgroundColor: "primary.main",
+                                textTransform: "none",
+                                ml: 2,
+                                "&:hover": {
+                                    backgroundColor: "primary.dark", // 호버 시 색상 변경
+                                },
+                            }}
+                        >
+                            {selectedLanguage}
+                        </Button>
+                        <Menu
+                            id="language-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={() => handleLanguageClose(null)}
+                            MenuListProps={{
+                                "aria-labelledby": "language-button",
+                            }}
+                        >
+                            <MenuItem onClick={() => handleLanguageClose("한국어")}>한국어</MenuItem>
+                            <MenuItem onClick={() => handleLanguageClose("English")}>English</MenuItem>
+                            <MenuItem onClick={() => handleLanguageClose("Español")}>Español</MenuItem>
+                        </Menu>
                     </Toolbar>
                 </Container>
             </AppBar>
@@ -148,10 +179,10 @@ const TopNavigation: React.FC = () => {
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
                     ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
+                        keepMounted: true,
                     }}
                     sx={{
-                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
                     }}
                 >
                     {drawer}
@@ -159,6 +190,6 @@ const TopNavigation: React.FC = () => {
             </nav>
         </Box>
     );
-}
+};
 
 export default TopNavigation;

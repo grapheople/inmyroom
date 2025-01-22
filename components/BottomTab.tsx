@@ -4,13 +4,13 @@ import React, {useState} from "react";
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {AssistWalker, Checkroom, EmojiEvents, Home, Landscape} from "@mui/icons-material";
-import {useSport} from "@/context/SportProvider";
+import {useGlobalContext} from "@/context/GlobalContextProvider";
 import {number} from "prop-types";
 
 
 const BottomTab: React.FC = () => {
     const router = useRouter(); // Next.js 라우팅 hook
-    const {sport, setSport} = useSport();
+    const {sport, setSport} = useGlobalContext();
 
     const menuItems = [
         {label: "홈", icon: <Home/>, key: "home", href: "/", categoryDepth1: "all"},

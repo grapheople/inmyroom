@@ -14,7 +14,7 @@ const BottomTab: React.FC = () => {
 
     const filteredMenuItems = menuItems.filter((item) => {
         if (sport === "hiking") {
-            return item.categoryDepth1 === "all" || item.categoryDepth1 === "mountain";
+            return item.categoryDepth1 === "all" || item.categoryDepth1 === "hiking";
         } else if (sport === "cycling") {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycling";
         } else if(sport === "home") {

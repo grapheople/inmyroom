@@ -3,7 +3,6 @@
 import React, {useState} from "react";
 import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import {useRouter} from "next/navigation";
-import {AssistWalker, Checkroom, EmojiEvents, Home, Landscape} from "@mui/icons-material";
 import {useGlobalContext} from "@/context/GlobalContextProvider";
 import {menuItems} from "@/data/menuItems";
 
@@ -17,7 +16,7 @@ const BottomTab: React.FC = () => {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "hiking";
         } else if (sport === "cycling") {
             return item.categoryDepth1 === "all" || item.categoryDepth1 === "cycling";
-        } else if(sport === "home") {
+        } else if (sport === "home") {
             return item.categoryDepth1 === "all";
         }
         // 기본값(혹은 다른 sport 값이 있을 때)
@@ -27,7 +26,7 @@ const BottomTab: React.FC = () => {
     const [value, setValue] = useState(0);
 
     const movePage = (path: string) => {
-        if(path === "/") {
+        if (path === "/") {
             setSport("home");
         }
         router.push(path); // 홈

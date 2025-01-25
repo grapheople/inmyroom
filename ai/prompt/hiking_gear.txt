@@ -1,0 +1,20 @@
+현재 사용중인 기술 : next.js, typescript
+
+저장하려는 모델 export interface Gear {
+             productNameKor: string;
+             productNameEn: string;
+             modelName: string;
+             brandName: string;
+             description: string;
+             sportCategory: string;
+             category1: string;
+             category2: string;
+             category3: string;
+             category4: string;
+             tags: string[];
+             imgs: string[];
+         }
+
+sportCategory는 'cycling', 'hiking' 둘중 하나야.
+category1에는 cycling이라면 '구동계' '휠' '프레임', '페달', '안장', '핸들바', '타이어', '액세서리', '의류', '신발', '헬멧' 중 하나가 들어가야해.
+hiking이라면 '배낭' '텐트' '베이스레이어', '미드레이어','소프트쉘', '하드쉘', '신발' '액세서리', '스틱', '모자' 중 하나가 들어가야해.

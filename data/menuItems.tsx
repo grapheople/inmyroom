@@ -1,5 +1,5 @@
 import {GraphyMenuItem} from "@/types/GraphyMenuItem";
-import {AssistWalker, EmojiEvents, Home, Landscape} from "@mui/icons-material";
+import {AssistWalker, EmojiEvents, Home, Landscape, PedalBike} from "@mui/icons-material";
 
 export const menuItems: GraphyMenuItem[] = [
     {
@@ -34,4 +34,12 @@ export const menuItems: GraphyMenuItem[] = [
         href: "/hiking/mountain-top-100",
         categoryDepth1: "hiking",
     },
+    {
+        label: "기어",
+        labelEn: "Gear",
+        icon: <PedalBike/>,
+        key: "gear",
+        href: "/cycling/gear",
+        categoryDepth1: "cycling"
+    }
 ];

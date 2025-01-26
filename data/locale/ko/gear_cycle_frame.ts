@@ -1,6 +1,6 @@
 import {Gear} from "@/types/Gear";
 
-export const gearCycle: Gear[] = [
+export const gearCycleFrame: Gear[] = [
 
     {
         "productNameKor": "타막 SL8",

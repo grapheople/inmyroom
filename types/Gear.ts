@@ -6,9 +6,10 @@ export interface Gear {
     description: string;
     sportCategory: string;
     category1: string;
-    category2: string;
-    category3: string;
-    category4: string;
+    category2?: string;
+    category3?: string;
+    category4?: string;
+    specs?: string[];
     tags: string[];
-    imgs: string[];
+    imgs?: string[];
 }

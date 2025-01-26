@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem} from "@mui/material";
-import {useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import {menuItems} from "@/data/menuItems";
 
 const TopNavigation: React.FC = () => {
+    const pathname = usePathname();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const router = useRouter();
     const {sport, setSport, selectedLanguage, setSelectedLanguage} = useGlobalContext();
@@ -35,10 +36,14 @@ const TopNavigation: React.FC = () => {
     };
 
     const movePage = (path: string) => {
-        if(path === "/") {
+        if (path === "/") {
             setSport("home");
         }
         router.push(path); // 홈
+    }
+
+    const checkCurrentMenu = (path: string) => {
+        return pathname.indexOf(path) > -1 && path !== "/";
     }
 
     const filteredMenuItems = menuItems.filter((item) => {
@@ -66,7 +71,9 @@ const TopNavigation: React.FC = () => {
                 {filteredMenuItems.map((menu) => (
                     <ListItem key={menu.key} disablePadding>
                         <ListItemButton
-                            sx={{textAlign: 'center'}}
+                            sx={{
+                                textAlign: 'center',
+                            }}
                             onClick={() => movePage(menu.href)}
                         >
                             <ListItemText primary={selectedLanguage === '한국어' ? menu.label : menu.labelEn}/>
@@ -113,20 +120,18 @@ const TopNavigation: React.FC = () => {
                             {filteredMenuItems.map((menu, index) => (
                                 <React.Fragment key={menu.key}>
                                     <Button
-                                        sx={{my: 2, color: 'white', display: 'block', fontSize: '1.1rem'}}
+                                        sx={{
+                                            my: 2,
+                                            color: 'white',
+                                            display: 'block',
+                                            border: checkCurrentMenu(menu.href) ? "1px solid white" : "none",
+                                            padding: 'unset',
+                                            fontSize: '1.1rem',
+                                        }}
                                         onClick={() => movePage(menu.href)}
                                     >
                                         {selectedLanguage === '한국어' ? menu.label : menu.labelEn}
                                     </Button>
-                                    {index < filteredMenuItems.length - 1 && (
-                                        <Divider
-                                            orientation="vertical"
-                                            sx={{
-                                                backgroundColor: 'white',
-                                                height: '20px', // 세로로 채우기
-                                            }}
-                                        />
-                                    )}
                                 </React.Fragment>
 
                             ))}

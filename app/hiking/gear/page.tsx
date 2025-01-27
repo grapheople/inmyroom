@@ -23,6 +23,10 @@ import {gearCycleSaddle} from "@/data/locale/ko/gear_cycle_saddle";
 import {gearCycleComponents} from "@/data/locale/ko/gear_cycle_components";
 import {gearCycleClothes} from "@/data/locale/ko/gear_cycle_clothes";
 import {gearCycleAccessory} from "@/data/locale/ko/gear_cycle_accessory";
+import {gearHikingBaseLayer} from "@/data/locale/ko/gear_hiking_base_layer";
+import {gearHikingMidLayer} from "@/data/locale/ko/gear_hiking_mid_layer";
+import {gearHikingSoftShell} from "@/data/locale/ko/gear_hiking_soft_shell";
+import {gearHikingHardShell} from "@/data/locale/ko/gear_hiking_hard_shell";
 
 const GearView: React.FC = () => {
     const {selectedLanguage} = useGlobalContext();
@@ -32,15 +36,14 @@ const GearView: React.FC = () => {
     const isMobile = useMediaQuery("(max-width:600px)"); // 반응형 브레이크포인트 설정
 
     // 여러 gear 데이터 합치기
-    const gears = gearCycleFrame
-        .concat(gearCycleWheel)
-        .concat(gearCycleSaddle)
-        .concat(gearCycleComponents)
-        .concat(gearCycleClothes)
-        .concat(gearCycleAccessory);
+    const gears = gearHikingBaseLayer
+        .concat(gearHikingMidLayer)
+        .concat(gearHikingSoftShell)
+        .concat(gearHikingHardShell);
+
 
     // 카테고리 버튼 배열
-    const categories = ["전체", "프레임", "휠", "안장", "의류", "구동계", "액세서리"];
+    const categories = ["전체", "베이스레이어", "미드레이어", "소프트쉘", "하드쉘"];
 
     // 아코디언 토글 핸들러
     const handleToggle = (id: number) => {
@@ -73,7 +76,7 @@ const GearView: React.FC = () => {
             .includes(searchQuery.toLowerCase());
 
         const matchesCategory =
-            selectedCategory === "" || selectedCategory === "전체" || item.category1 === selectedCategory;
+            selectedCategory === "" || selectedCategory === "전체" || item.category3 === selectedCategory;
 
         return matchesSearch && matchesCategory;
     });

@@ -1,20 +1,36 @@
 현재 사용중인 기술 : next.js, typescript
 
 저장하려는 모델 export interface Gear {
-             productNameKor: string;
-             productNameEn: string;
-             modelName: string;
-             brandName: string;
-             description: string;
-             sportCategory: string;
-             category1: string;
-             category2: string;
-             category3: string;
-             category4: string;
-             tags: string[];
-             imgs: string[];
-         }
+            productNameKor: string;
+            productNameEn: string;
+            modelName: string;
+            brandNameKor: string;
+            brandNameEn: string;
+            description: string;
+            sportCategory: string;
+            category1: string;
+            category2: string;
+            category3: string;
+            category4: string;
+            specs?: string[];
+            tags: string[];
+        }
 
-sportCategory는 'cycling', 'hiking' 둘중 하나야.
-category1에는 cycling이라면 '구동계' '휠' '프레임', '페달', '안장', '핸들바', '타이어', '액세서리', '의류', '신발', '헬멧' 중 하나가 들어가야해.
-hiking이라면 '배낭' '텐트' '베이스레이어', '미드레이어','소프트쉘', '하드쉘', '신발' '액세서리', '스틱', '모자' 중 하나가 들어가야해.
+sportCategory는 'hiking'를 넣어줘.
+category1에는 '의류'가 들어가야해.
+category2에는 '상의'가 들어가야해.
+category3에는 '미드레이어'가 들어가야해
+productNameKor에는 '한글이름'을 넣어줘.
+productNameEn에는 '영문이름'을 넣어줘.
+modelName에는 '모델명'을 넣어줘.
+brandNameKor에는 '한글 브랜드명'을 넣어줘.
+brandNameEn에는 '영문 브랜드명'을 넣어줘.
+description에는 '설명'을 넣어줘.
+tags에는 '태그'를 넣어주는데 sportCategory와 비어있지 않은 category1~4의 값도 넣어줘
+specs에는 해당 제품의 스펙을 array로 넣어줘. spec에 해당하는것은 무게, 재질, 특징 등에 대한 정보를 넣어줘. 정확한 정보가 없다면 생략해도돼
+정확한 정보를 찾도록하고 확실한 정보가 아니라면 리스트에서 제외해줘
+
+
+아크테릭스 브랜드의 '소프트쉘'에 해당하는 상의 정보를 위에 얘기한 형식대로 json으로 만들어줘.
+결과물은 []에 배열로만 넣어줘.
+응답은 네가 사용할수있는 최대 토큰개수만큼 제공해줘

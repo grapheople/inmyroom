@@ -27,7 +27,7 @@ export const menuItems: GraphyMenuItem[] = [
         categoryDepth1: "cycling"
     },
     {
-        label: "100대명산",
+        label: "명산",
         labelEn: "Mountains",
         icon: <Landscape/>,
         key: "mountain-top-100",
@@ -41,5 +41,13 @@ export const menuItems: GraphyMenuItem[] = [
         key: "gear",
         href: "/cycling/gear",
         categoryDepth1: "cycling"
+    },
+    {
+        label: "기어",
+        labelEn: "Gear",
+        icon: <PedalBike/>,
+        key: "gear",
+        href: "/hiking/gear",
+        categoryDepth1: "hiking"
     }
 ];

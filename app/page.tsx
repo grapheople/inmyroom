@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Grid2, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import { Grid2, Typography, Dialog, DialogContent, DialogActions, Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useGlobalContext } from "@/context/GlobalContextProvider";
 import { useRouter } from "next/navigation";
 import {sendGTMEvent} from "@next/third-parties/google";
-import {margin} from "@mui/system";
 
 const ResponsiveDetailView: React.FC = () => {
     const router = useRouter();
@@ -79,7 +78,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <a onClick={handleHikingClick}>
+                        <a href="/hiking/mountain-top-100" onClick={handleHikingClick}>
                             <img
                                 src="/hiking_2.webp"
                                 alt="Running Thumbnail"
@@ -110,7 +109,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <a onClick={handleCyclingClick}>
+                        <a href="/cycling/competition" onClick={handleCyclingClick}>
                             <img
                                 src="/cycling_2.webp"
                                 alt="Cycling Thumbnail"

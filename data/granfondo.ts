@@ -50,7 +50,7 @@ export const competitionData: CompetitionItem[] = [
         "link": "https://jsrgf.com/bri/sub.php?sub=sub_10&snb=1&menu=10",
         "fee": 70000,
         "goal1": "거리 103.6km",
-        "goal2": null,
+        "goal2": "획득고도 2,126m",
         "goal3": null,
         "goal4": null,
         "upcoming": false,

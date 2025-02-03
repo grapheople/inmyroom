@@ -137,7 +137,7 @@ export const competitionData: CompetitionItem[] = [
         "eventStartDate": new Date("2025-05-24T08:00:00"),
         "regStartDate": new Date("2025-02-17T10:00:00"),
         "regEndDate": null,
-        "link": "",
+        "link": "https://gpcu.co.kr/",
         "fee": 0,
         "goal1": null,
         "goal2": null,

@@ -166,7 +166,7 @@ const ResponsiveDetailView: React.FC = () => {
                                             alignItems: isMobile ? "stretch" : "center", // 버튼이 세로 정렬일 때 너비 맞춤
                                         }}
                                     >
-                                        <Button
+                                    {item.link && (<Button 
                                             variant="contained"
                                             color="info"
                                             href={item.link || "#"}
@@ -180,28 +180,28 @@ const ResponsiveDetailView: React.FC = () => {
                                                 width: isMobile ? "100%" : "auto", // 모바일에서는 버튼이 전체 너비를 사용
                                             }}
                                         >
-                                            대회 사이트 이동
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="info"
-                                            href={
-                                                "https://map.naver.com/p/search/" +
-                                                item.location +
-                                                "??c=13.00,0,0,0,dh"
-                                            }
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            startIcon={<LocationOn />}
-                                            sx={{
-                                                flex: 1, // 버튼 크기 유동적
-                                                maxWidth: "200px", // 최대 너비 200px
-                                                textTransform: "none",
-                                                width: isMobile ? "100%" : "auto", // 모바일에서는 버튼이 전체 너비를 사용
-                                            }}
-                                        >
-                                            지도 보기
-                                        </Button>
+                                        대회 사이트 이동
+                                    </Button>)}
+                                    <Button
+                                        variant="contained"
+                                        color="info"
+                                        href={
+                                            "https://map.naver.com/p/search/" +
+                                            item.location +
+                                            "??c=13.00,0,0,0,dh"
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        startIcon={<LocationOn />}
+                                        sx={{
+                                            flex: 1, // 버튼 크기 유동적
+                                            maxWidth: "200px", // 최대 너비 200px
+                                            textTransform: "none",
+                                            width: isMobile ? "100%" : "auto", // 모바일에서는 버튼이 전체 너비를 사용
+                                        }}
+                                    >
+                                        지도 보기
+                                    </Button>
                                     </Box>
                                     {item.imgs.length > 0 && (
                                         <img

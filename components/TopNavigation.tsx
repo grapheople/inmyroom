@@ -121,11 +121,10 @@ const TopNavigation: React.FC = () => {
                                 <React.Fragment key={menu.key}>
                                     <Button
                                         sx={{
-                                            my: 2,
+                                            padding: '4px',
                                             color: 'white',
                                             display: 'block',
                                             border: checkCurrentMenu(menu.href) ? "1px solid white" : "none",
-                                            padding: 'unset',
                                             fontSize: '1.1rem',
                                         }}
                                         onClick={() => movePage(menu.href)}

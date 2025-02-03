@@ -1,12 +1,5 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
-import { Roboto } from 'next/font/google';
-
-const roboto = Roboto({
-    weight: ['300', '400', '500', '700'],
-    subsets: ['latin'],
-    display: 'swap',
-});
 
 const theme = createTheme({
     cssVariables: true,
@@ -14,7 +7,24 @@ const theme = createTheme({
         mode: 'light',
     },
     typography: {
-        fontFamily: roboto.style.fontFamily,
+        fontFamily: [
+            'Pretendard',
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+        ].join(','),
+        h1: {
+            fontFamily: 'Pretendard',
+            fontWeight: 700,
+        },
+        body1: {
+            fontFamily: 'Pretendard',
+            fontWeight: 400,
+        },
     },
     components: {
         MuiAlert: {

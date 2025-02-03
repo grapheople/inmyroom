@@ -32,6 +32,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <meta property="og:image:height" content="630"/>
             <meta property="og:type" content="website"/>
             <GoogleAdSense />
+            <link 
+                href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" 
+                rel="stylesheet"
+            />
         </head>
         <GoogleTagManager gtmId="GTM-TH4TZR99"/>
         <body>

@@ -271,5 +271,23 @@ export const competitionData: CompetitionItem[] = [
         "goal4": null,
         "upcoming": true,
         "imgs": []
+    },
+    {
+        "id": 16,
+        "year": "2025",
+        "name": "부안군 메디오폰도",
+        "host": "부안군",
+        "location": "부안스포츠파크",
+        "eventStartDate": new Date("2025-04-13T08:00:00"),
+        "regStartDate": new Date("2025-02-07T10:00:00"),
+        "regEndDate": null,
+        "link": "http://speedagency.kr/more.html?game_code=80",
+        "fee": 60000,
+        "goal1": "거리 81km",
+        "goal2": "획득고도 1,211m",
+        "goal3": null,
+        "goal4": null,
+        "upcoming": false,
+        "imgs": []
     }
 ];

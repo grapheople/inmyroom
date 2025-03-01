@@ -4,4 +4,5 @@ export interface Mountain {
     description: string;
     location: string;
     elevation: number;
+    priority: number;
 }

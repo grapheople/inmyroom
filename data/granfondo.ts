@@ -289,5 +289,23 @@ export const competitionData: CompetitionItem[] = [
         "goal4": null,
         "upcoming": false,
         "imgs": []
+    },
+    {
+        "id": 17,
+        "year": "2025",
+        "name": "내장산 그란폰도",
+        "host": "정읍시",
+        "location": "내장산워터파크",
+        "eventStartDate": new Date("2025-06-01T08:00:00"),
+        "regStartDate": new Date("2025-02-28T10:00:00"),
+        "regEndDate": null,
+        "link": "http://speedagency.kr/more.html?game_code=82",
+        "fee": 70000,
+        "goal1": "거리 139km",
+        "goal2": "획득고도 2,076m",
+        "goal3": null,
+        "goal4": null,
+        "upcoming": false,
+        "imgs": []
     }
 ];

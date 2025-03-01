@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -18,9 +18,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LocationOn from "@mui/icons-material/LocationOn";
 import useMediaQuery from "@mui/material/useMediaQuery"; // MUI 반응형 유틸리티
-import {sendGTMEvent} from "@next/third-parties/google";
+import { sendGTMEvent } from "@next/third-parties/google";
 
-import {mountainData} from "@/data/mountains";
+import { mountainData } from "@/data/mountains";
 
 const ResponsiveDetailView: React.FC = () => {
     const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -46,11 +46,11 @@ const ResponsiveDetailView: React.FC = () => {
         (item) =>
             item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.location.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    ).sort((a, b) => b.priority - a.priority);
 
     return (
-        <Box sx={{paddingBottom: 7}}>
-            <Box sx={{padding: 2}}>
+        <Box sx={{ paddingBottom: 7 }}>
+            <Box sx={{ padding: 2 }}>
                 <TextField
                     fullWidth
                     variant="standard"
@@ -93,25 +93,25 @@ const ResponsiveDetailView: React.FC = () => {
                             >
                                 <ListItemText
                                     primary={`${item.name}`}
-                                    style={{flex: 1}}
+                                    style={{ flex: 1 }}
                                 />
                                 <Divider
                                     orientation="vertical"
-                                    style={{margin: "0 10px", height: "40px"}}
+                                    style={{ margin: "0 10px", height: "40px" }}
                                 />
                                 <ListItemText
                                     primary={`${item.elevation}m`}
                                     secondary={`해발 고도`}
-                                    style={{flex: 1}}
+                                    style={{ flex: 1 }}
                                 />
                                 <Divider
                                     orientation="vertical"
-                                    style={{margin: "0 10px", height: "40px"}}
+                                    style={{ margin: "0 10px", height: "40px" }}
                                 />
                                 <ListItemText
                                     primary={`${item.location}`}
                                     secondary={`지역`}
-                                    style={{flex: 1}}
+                                    style={{ flex: 1 }}
                                 />
                             </ListItem>
                         </AccordionSummary>
@@ -149,7 +149,7 @@ const ResponsiveDetailView: React.FC = () => {
                                         href={"https://namu.wiki/w/" + item.name}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        startIcon={<OpenInNewIcon/>}
+                                        startIcon={<OpenInNewIcon />}
                                         sx={{
                                             flex: 1, // 버튼 크기 유동적
                                             maxWidth: "200px", // 최대 너비 200px
@@ -169,7 +169,7 @@ const ResponsiveDetailView: React.FC = () => {
                                         }
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        startIcon={<LocationOn/>}
+                                        startIcon={<LocationOn />}
                                         sx={{
                                             flex: 1, // 버튼 크기 유동적
                                             maxWidth: "200px", // 최대 너비 200px

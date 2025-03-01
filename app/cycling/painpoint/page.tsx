@@ -343,7 +343,7 @@ const HumanBody: React.FC = () => {
                 }}
             >
                 <img
-                    src="/human-body.webp"
+                    src="https://mrlyfaibilizunhhcbia.supabase.co/storage/v1/object/sign/graphy/human-body.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJncmFwaHkvaHVtYW4tYm9keS53ZWJwIiwiaWF0IjoxNzQwODQzMTkwLCJleHAiOjE3NzIzNzkxOTB9.14SjTeWGs_QmMGj7IRiaA8pMlOe3FC20AffS4sxPYjE"
                     alt="인체 이미지"
                     style={{
                         minWidth: "150px",

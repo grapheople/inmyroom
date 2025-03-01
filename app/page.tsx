@@ -80,7 +80,7 @@ const ResponsiveDetailView: React.FC = () => {
                     <Box sx={{ textAlign: "center" }}>
                         <a href="/hiking/mountain-top-100" onClick={handleHikingClick}>
                             <img
-                                src="/hiking_2.webp"
+                                src="https://mrlyfaibilizunhhcbia.supabase.co/storage/v1/object/sign/graphy/hiking_2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJncmFwaHkvaGlraW5nXzIud2VicCIsImlhdCI6MTc0MDg0MzEzMCwiZXhwIjoxNzcyMzc5MTMwfQ.eEFAeVDD0SHuAKiwWkddPfY0ZQgBlanr2L6QK0_2sbw"
                                 alt="Running Thumbnail"
                                 style={{
                                     width: "100%",
@@ -111,7 +111,7 @@ const ResponsiveDetailView: React.FC = () => {
                     <Box sx={{ textAlign: "center" }}>
                         <a href="/cycling/competition" onClick={handleCyclingClick}>
                             <img
-                                src="/cycling_2.webp"
+                                src="https://mrlyfaibilizunhhcbia.supabase.co/storage/v1/object/sign/graphy/cycling_2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJncmFwaHkvY3ljbGluZ18yLndlYnAiLCJpYXQiOjE3NDA4NDI5ODAsImV4cCI6MTc3MjM3ODk4MH0.Ixh6drF3ag3Uf3rV2_BavHH01l1nbAWGEmQ4i9O71Qk"
                                 alt="Cycling Thumbnail"
                                 style={{
                                     width: "100%",

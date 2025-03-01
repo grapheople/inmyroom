@@ -26,7 +26,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <meta name="keywords" content="등산, 싸이클, 운동, 대회, 그란폰도"/>
             <meta name="author" content="Graphy"/>
             <meta property="og:title" content="Graphy"/>
-            <meta property="og:image" content="/thumbnail.webp"/>
+            <meta property="og:image" content="https://mrlyfaibilizunhhcbia.supabase.co/storage/v1/object/sign/graphy/thumbnail.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJncmFwaHkvdGh1bWJuYWlsLndlYnAiLCJpYXQiOjE3NDA4NDMxNTMsImV4cCI6MTc3MjM3OTE1M30.TycA92kZxeoYsxiPZAQlj4Vf1yl5iSp3qtYFm_9e8Q0"/>
             <meta property="og:description" content="모험가를 위한 안내서 - 등산 & 싸이클 운동 정보"/>
             <meta property="og:image:width" content="1200"/>
             <meta property="og:image:height" content="630"/>

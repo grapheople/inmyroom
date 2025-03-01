@@ -17,14 +17,74 @@ import moment from "moment";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import useMediaQuery from "@mui/material/useMediaQuery"; // MUI 반응형 유틸리티
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { sendGTMEvent } from "@next/third-parties/google";
+import { supabase } from "@/api/supabase";
 
-import { competitionData } from "@/data/granfondo";
+// 캐싱 관련 상수
+const CACHE_KEY = "competitionData";
+const CACHE_TIMESTAMP_KEY = "competitionDataTimestamp";
+const CACHE_DURATION = 3 * 60 * 60 * 1000; // 3시간 (밀리초 단위)
 
 const ResponsiveDetailView: React.FC = () => {
+    const [competitionData, setCompetitionData] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const [expandedId, setExpandedId] = useState<number | null>(null);
-    const isMobile = useMediaQuery("(max-width:600px)"); // 반응형 브레이크포인트 설정
+    const isMobile = useMediaQuery("(max-width:600px)");
+
+    useEffect(() => {
+        const fetchCompetitions = async () => {
+            setLoading(true);
+            setError(null);
+
+            const now = Date.now();
+            const cachedData = localStorage.getItem(CACHE_KEY);
+            const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+
+            // 캐시가 존재하고, 캐시된 시간이 3시간 이내이면 캐시 데이터 사용
+            if (
+                cachedData &&
+                cachedTimestamp &&
+                now - parseInt(cachedTimestamp, 10) < CACHE_DURATION
+            ) {
+                const parsedData = JSON.parse(cachedData);
+                // 날짜 문자열을 Date 객체로 변환
+                const transformedData = parsedData.map((item: any) => ({
+                    ...item,
+                    eventStartDate: item.eventStartDate ? new Date(item.eventStartDate) : null,
+                    regStartDate: item.regStartDate ? new Date(item.regStartDate) : null,
+                    regEndDate: item.regEndDate ? new Date(item.regEndDate) : null,
+                }));
+                setCompetitionData(transformedData);
+                setLoading(false);
+                return;
+            }
+
+            // 캐시가 없거나 만료된 경우 DB에서 데이터 요청
+            const { data, error } = await supabase.from("competition").select("*");
+
+            if (error) {
+                setError("데이터를 불러오는 중 오류가 발생했습니다.");
+                console.error("Error fetching competitions:", error);
+            } else {
+                const transformedData = data.map((item: any) => ({
+                    ...item,
+                    eventStartDate: item.eventStartDate ? new Date(item.eventStartDate) : null,
+                    regStartDate: item.regStartDate ? new Date(item.regStartDate) : null,
+                    regEndDate: item.regEndDate ? new Date(item.regEndDate) : null,
+                })) || [];
+                setCompetitionData(transformedData);
+                // 캐시 업데이트
+                localStorage.setItem(CACHE_KEY, JSON.stringify(transformedData));
+                localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
+            }
+
+            setLoading(false);
+        };
+
+        fetchCompetitions();
+    }, []);
 
     const handleToggle = (id: number) => {
         sendGTMEvent({
@@ -36,6 +96,9 @@ const ResponsiveDetailView: React.FC = () => {
         setExpandedId((prev) => (prev === id ? null : id));
     };
 
+    if (loading) return <Typography>Loading...</Typography>;
+    if (error) return <Typography color="error">{error}</Typography>;
+
     return (
         <Box sx={{ paddingBottom: 7 }}>
             <List>
@@ -43,22 +106,17 @@ const ResponsiveDetailView: React.FC = () => {
                     .sort((a, b) => {
                         // regStartDate가 null인 경우 뒤로 정렬
                         if (a.regStartDate && b.regStartDate) {
-                            // 1. regStartDate 기준 정렬
                             const dateCompare = a.regStartDate.getTime() - b.regStartDate.getTime();
                             if (dateCompare !== 0) return dateCompare;
                         }
-
                         if (!a.eventStartDate) return 1;
                         if (!b.eventStartDate) return -1;
-
-                        // 2. eventStartDate 기준 정렬
+                        // eventStartDate 기준 정렬
                         const dateCompare2 = a.eventStartDate.getTime() - b.eventStartDate.getTime();
                         if (dateCompare2 !== 0) return dateCompare2;
-
-                        // 3. upcoming이 false인 항목을 우선 정렬
+                        // upcoming이 false인 항목을 우선 정렬
                         if (a.upcoming !== b.upcoming) return Number(a.upcoming) - Number(b.upcoming);
-
-                        // 4. id 기준 정렬
+                        // id 기준 정렬
                         return a.id - b.id;
                     })
                     .map((item) => (
@@ -105,7 +163,9 @@ const ResponsiveDetailView: React.FC = () => {
                                     <ListItemText
                                         primary={`${
                                             item.eventStartDate
-                                                ? item.upcoming ? moment(item.eventStartDate).format("YYYY. MM.") + " (예정)" : moment(item.eventStartDate).format("YYYY. MM. DD")
+                                                ? item.upcoming
+                                                    ? moment(item.eventStartDate).format("YYYY. MM.") + " (예정)"
+                                                    : moment(item.eventStartDate).format("YYYY. MM. DD")
                                                 : "미정"
                                         }`}
                                         secondary={`대회일`}
@@ -160,50 +220,52 @@ const ResponsiveDetailView: React.FC = () => {
                                     <Box
                                         sx={{
                                             display: "flex",
-                                            flexDirection: isMobile ? "column" : "row", // 반응형 레이아웃
-                                            gap: 2, // 버튼 간격
-                                            mt: 2, // 여백 추가
-                                            alignItems: isMobile ? "stretch" : "center", // 버튼이 세로 정렬일 때 너비 맞춤
+                                            flexDirection: isMobile ? "column" : "row",
+                                            gap: 2,
+                                            mt: 2,
+                                            alignItems: isMobile ? "stretch" : "center",
                                         }}
                                     >
-                                    {item.link && (<Button 
+                                        {item.link && (
+                                            <Button
+                                                variant="contained"
+                                                color="info"
+                                                href={item.link || "#"}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                startIcon={<OpenInNewIcon />}
+                                                sx={{
+                                                    flex: 1,
+                                                    maxWidth: "200px",
+                                                    textTransform: "none",
+                                                    width: isMobile ? "100%" : "auto",
+                                                }}
+                                            >
+                                                대회 사이트 이동
+                                            </Button>
+                                        )}
+                                        <Button
                                             variant="contained"
                                             color="info"
-                                            href={item.link || "#"}
+                                            href={
+                                                "https://map.naver.com/p/search/" +
+                                                item.location +
+                                                "??c=13.00,0,0,0,dh"
+                                            }
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            startIcon={<OpenInNewIcon />}
+                                            startIcon={<LocationOn />}
                                             sx={{
-                                                flex: 1, // 버튼 크기 유동적
-                                                maxWidth: "200px", // 최대 너비 200px
+                                                flex: 1,
+                                                maxWidth: "200px",
                                                 textTransform: "none",
-                                                width: isMobile ? "100%" : "auto", // 모바일에서는 버튼이 전체 너비를 사용
+                                                width: isMobile ? "100%" : "auto",
                                             }}
                                         >
-                                        대회 사이트 이동
-                                    </Button>)}
-                                    <Button
-                                        variant="contained"
-                                        color="info"
-                                        href={
-                                            "https://map.naver.com/p/search/" +
-                                            item.location +
-                                            "??c=13.00,0,0,0,dh"
-                                        }
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<LocationOn />}
-                                        sx={{
-                                            flex: 1, // 버튼 크기 유동적
-                                            maxWidth: "200px", // 최대 너비 200px
-                                            textTransform: "none",
-                                            width: isMobile ? "100%" : "auto", // 모바일에서는 버튼이 전체 너비를 사용
-                                        }}
-                                    >
-                                        지도 보기
-                                    </Button>
+                                            지도 보기
+                                        </Button>
                                     </Box>
-                                    {item.imgs.length > 0 && (
+                                    {item.imgs?.length > 0 && (
                                         <img
                                             src={item.imgs[0]}
                                             alt={`${item.name} 이미지`}

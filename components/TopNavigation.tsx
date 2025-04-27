@@ -37,7 +37,7 @@ const TopNavigation: React.FC = () => {
 
     const movePage = (path: string) => {
         if (path === "/") {
-            setSport("home");
+            setSport("cycling");
         }
         router.push(path); // 홈
     }
@@ -103,7 +103,7 @@ const TopNavigation: React.FC = () => {
                             variant="h6"
                             noWrap
                             component="a"
-                            href="#"
+                            href="/cycling/home"
                             sx={{
                                 ml: 2,
                                 mr: 2,

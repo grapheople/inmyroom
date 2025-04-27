@@ -32,7 +32,7 @@ const BottomTab: React.FC = () => {
 
     const movePage = (path: string) => {
         if (path === "/") {
-            setSport("home");
+            setSport("cycling");
         }
         router.push(path); // 홈
     }

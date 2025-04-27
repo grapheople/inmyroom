@@ -1,5 +1,5 @@
 import {GraphyMenuItem} from "@/types/GraphyMenuItem";
-import {AssistWalker, EmojiEvents, Home, Landscape, PedalBike} from "@mui/icons-material";
+import {AssistWalker, Build, EmojiEvents, Home, Landscape, PedalBike} from "@mui/icons-material";
 
 export const menuItems: GraphyMenuItem[] = [
     {
@@ -7,8 +7,16 @@ export const menuItems: GraphyMenuItem[] = [
         labelEn: "Home",
         icon: <Home/>,
         key: "home",
-        href: "/",
+        href: "/cycling/home",
         categoryDepth1: "all"
+    },
+    {
+        label: "정비",
+        labelEn: "Maintenance",
+        icon: <Build/>,
+        key: "maintenance",
+        href: "/cycling/maintenance",
+        categoryDepth1: "cycling"
     },
     {
         label: "대회",

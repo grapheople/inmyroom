@@ -33,7 +33,7 @@ const ResponsiveDetailView: React.FC = () => {
             label: "cycle",
         });
         setSport("cycling");
-        router.push("/cycling/competition");
+        router.push("/cycling/home");
     }
 
     const handleClose = () => {
@@ -109,7 +109,7 @@ const ResponsiveDetailView: React.FC = () => {
                     }}
                 >
                     <Box sx={{ textAlign: "center" }}>
-                        <a href="/cycling/competition" onClick={handleCyclingClick}>
+                        <a href="/cycling/home" onClick={handleCyclingClick}>
                             <img
                                 src="https://mrlyfaibilizunhhcbia.supabase.co/storage/v1/object/sign/graphy/cycling_2.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJncmFwaHkvY3ljbGluZ18yLndlYnAiLCJpYXQiOjE3NDA4NDI5ODAsImV4cCI6MTc3MjM3ODk4MH0.Ixh6drF3ag3Uf3rV2_BavHH01l1nbAWGEmQ4i9O71Qk"
                                 alt="Cycling Thumbnail"

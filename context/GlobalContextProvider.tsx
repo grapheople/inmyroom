@@ -12,7 +12,7 @@ interface GlobalContextValue {
 const GlobalContext = createContext<GlobalContextValue | undefined>(undefined);
 
 export function GlobalContextProvider({ children }: { children: React.ReactNode }) {
-    const [sport, setSport] = useState<string>("home");
+    const [sport, setSport] = useState<string>("cycling");
     const [selectedLanguage, setSelectedLanguage] = useState<string>("한국어");
 
 
@@ -27,7 +27,7 @@ export function GlobalContextProvider({ children }: { children: React.ReactNode 
                 } else if (sport === "cycling") {
                     setSport("cycling");
                 } else {
-                    setSport("home");
+                    setSport("hiking");
                 }
             }
         }

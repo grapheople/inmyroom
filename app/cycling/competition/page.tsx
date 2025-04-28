@@ -20,6 +20,7 @@ import Button from "@mui/material/Button";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { supabase } from "@/api/supabase";
+import {CompetitionItem} from "@/types/competition/CompetitionItem";
 
 // 캐싱 관련 상수
 const CACHE_KEY = "competitionData";

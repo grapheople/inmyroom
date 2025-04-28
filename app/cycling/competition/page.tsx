@@ -86,6 +86,8 @@ const ResponsiveDetailView: React.FC = () => {
         fetchCompetitions();
     }, []);
 
+    const now = Date.now();
+
     const handleToggle = (id: number) => {
         sendGTMEvent({
             event: "expand_competition_item",
@@ -104,19 +106,37 @@ const ResponsiveDetailView: React.FC = () => {
             <List>
                 {competitionData
                     .sort((a, b) => {
-                        // regStartDate가 null인 경우 뒤로 정렬
-                        if (a.regStartDate && b.regStartDate) {
-                            const dateCompare = a.regStartDate.getTime() - b.regStartDate.getTime();
-                            if (dateCompare !== 0) return dateCompare;
-                        }
-                        if (!a.eventStartDate) return 1;
-                        if (!b.eventStartDate) return -1;
-                        // eventStartDate 기준 정렬
-                        const dateCompare2 = a.eventStartDate.getTime() - b.eventStartDate.getTime();
-                        if (dateCompare2 !== 0) return dateCompare2;
-                        // upcoming이 false인 항목을 우선 정렬
+                        /* 0) 날짜 누락 여부 ------------------------------------------------- */
+                        const missingA = !a.eventStartDate || !a.regStartDate;
+                        const missingB = !b.eventStartDate || !b.regStartDate;
+
+                        // (a) 둘 다 누락 → 같은 그룹 (순서 유지)
+                        if (missingA && missingB) return 0;
+                        // (b) 한 쪽만 누락 → 누락한 쪽을 뒤로
+                        if (missingA) return 1;
+                        if (missingB) return -1;
+                        // (c) 여기까지 오면 두 날짜 모두 존재 (null 아님)
+
+                        /* 1) 과거 eventStartDate 대회 뒤로 ---------------------------------- */
+                        const pastA = a.eventStartDate!.getTime() < now;
+                        const pastB = b.eventStartDate!.getTime() < now;
+
+                        if (pastA !== pastB) return pastA ? 1 : -1;
+
+                        /* 2) 현재와 가장 가까운 날짜(event vs reg) -------------------------- */
+                        const nearestDelta = (c: CompetitionItem) => {
+                            const d1 = Math.abs(c.eventStartDate!.getTime() - now);
+                            const d2 = Math.abs(c.regStartDate!.getTime()   - now);
+                            return Math.min(d1, d2);
+                        };
+
+                        const deltaA = nearestDelta(a);
+                        const deltaB = nearestDelta(b);
+
+                        if (deltaA !== deltaB) return deltaA - deltaB;
+
+                        /* 3) tie-breakers --------------------------------------------------- */
                         if (a.upcoming !== b.upcoming) return Number(a.upcoming) - Number(b.upcoming);
-                        // id 기준 정렬
                         return a.id - b.id;
                     })
                     .map((item) => (

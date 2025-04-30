@@ -27,7 +27,7 @@ export function GlobalContextProvider({ children }: { children: React.ReactNode 
                 } else if (sport === "cycling") {
                     setSport("cycling");
                 } else {
-                    setSport("hiking");
+                    setSport("cycling");
                 }
             }
         }

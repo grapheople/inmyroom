@@ -34,6 +34,27 @@ export default function Dashboard() {
     /** ---------------------- 위치 좌표 처리 ---------------------- */
     const [pos, setPos] = useState<Position>({ lat: null, lon: null });
 
+    const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+    const weatherUrl =
+        pos.lat && pos.lon
+            ? `https://api.openweathermap.org/data/2.5/weather?lat=${pos.lat}&lon=${pos.lon}&appid=${API_KEY}&units=metric&lang=kr`
+            : null;
+
+    const { data: weather, error: weatherError } = useSWR(weatherUrl, fetcher);
+    const getWeatherIcon = (main: string) => {
+        switch (main) {
+            case 'Clear':
+                return <WbSunnyIcon fontSize="large" />;
+            case 'Clouds':
+                return <CloudIcon fontSize="large" />;
+            case 'Rain':
+            case 'Drizzle':
+                return <GrainIcon fontSize="large" />;
+            default:
+                return <WbSunnyIcon fontSize="large" />;
+        }
+    };
+
     useEffect(() => {
         if (!('geolocation' in navigator)) {
             setPos({ lat: null, lon: null, error: { code: 0, message: 'unsupported', NAME: 'unsupported' } as any });
@@ -56,16 +77,6 @@ export default function Dashboard() {
     };
 
     /** ---------------------- 주간 날씨 (샘플) ---------------------- */
-    const weatherData = [
-        { date: '2025-04-28', icon: WbSunnyIcon, high: 22, low: 12, desc: 'Sunny' },
-        { date: '2025-04-29', icon: CloudIcon, high: 20, low: 11, desc: 'Cloudy' },
-        { date: '2025-04-30', icon: GrainIcon, high: 18, low: 10, desc: 'Rain' },
-        { date: '2025-05-01', icon: WbSunnyIcon, high: 23, low: 13, desc: 'Sunny' },
-        { date: '2025-05-02', icon: CloudIcon, high: 19, low: 12, desc: 'Partly Cloudy' },
-        { date: '2025-05-03', icon: GrainIcon, high: 17, low: 9, desc: 'Showers' },
-        { date: '2025-05-04', icon: WbSunnyIcon, high: 24, low: 14, desc: 'Sunny' },
-    ];
-
     if (!data) return <Box p={3}>Loading...</Box>;
 
     const { totalDistance, totalRides, avgSpeed } = data;
@@ -148,62 +159,31 @@ export default function Dashboard() {
                     <Card elevation={3} sx={{ flexGrow: 1, height: '100%' }}>
                         <CardContent sx={{ height: '100%' }}>
                             <Stack direction="row" spacing={2} alignItems="center" sx={{ height: '100%' }}>
-                                <LocationOnIcon fontSize="large" />
-                                <Box>
-                                    <Typography variant="subtitle2" color="text.secondary">
-                                        Current Location
-                                    </Typography>
-                                    {pos.error ? (
-                                        <Typography variant="body2" color="error">
-                                            {pos.error.message}
-                                        </Typography>
-                                    ) : pos.lat != null ? (
-                                        <Typography variant="h6" fontWeight={600}>
-                                            {pos.lat.toFixed(4)}, {pos.lon!.toFixed(4)}
-                                        </Typography>
-                                    ) : (
-                                        <Typography variant="body2">Fetching…</Typography>
-                                    )}
-                                </Box>
+                                {weather ? (
+                                    <>
+                                        {getWeatherIcon(weather.weather[0].main)}
+                                        <Box>
+                                            <Typography variant="subtitle2" color="text.secondary">
+                                                현재 날씨
+                                            </Typography>
+                                            <Typography variant="h6" fontWeight={600}>
+                                                {weather.main.temp}°C
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                습도 {weather.main.humidity}%, 풍속 {weather.wind.speed}m/s
+                                            </Typography>
+                                        </Box>
+                                    </>
+                                ) : weatherError ? (
+                                    <Typography color="error">날씨 정보를 불러올 수 없습니다.</Typography>
+                                ) : (
+                                    <Typography>날씨 정보를 불러오는 중…</Typography>
+                                )}
                             </Stack>
                         </CardContent>
                     </Card>
                 </Grid>
             </Grid>
-
-            {/* Weekly Weather Forecast */}
-            <Card elevation={3}>
-                <CardContent>
-                    <Typography variant="subtitle1" mb={2}>
-                        Weekly Weather Forecast
-                    </Typography>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: (theme) => theme.spacing(2),
-                        }}
-                    >
-                        {weatherData.map((day) => {
-                            const IconComponent = day.icon;
-                            return (
-                                <Box key={day.date} sx={{ width: 90, textAlign: 'center' }}>
-                                    <Typography variant="body2" fontWeight={500}>
-                                        {new Date(day.date).toLocaleDateString(undefined, { weekday: 'short' })}
-                                    </Typography>
-                                    <IconComponent fontSize="large" />
-                                    <Typography variant="body2">
-                                        {day.high}°/{day.low}°
-                                    </Typography>
-                                    <Typography variant="caption" color="text.secondary">
-                                        {day.desc}
-                                    </Typography>
-                                </Box>
-                            );
-                        })}
-                    </Box>
-                </CardContent>
-            </Card>
         </Box>
     );
 }

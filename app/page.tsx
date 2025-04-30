@@ -40,7 +40,12 @@ export default function Dashboard() {
             ? `https://api.openweathermap.org/data/2.5/weather?lat=${pos.lat}&lon=${pos.lon}&appid=${API_KEY}&units=metric&lang=kr`
             : null;
 
-    const { data: weather, error: weatherError } = useSWR(weatherUrl, fetcher);
+    const { data: weather, error: weatherError } = useSWR(weatherUrl, fetcher, {
+        dedupingInterval: 60 * 1000 * 10,
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+    });
+
     const getWeatherIcon = (main: string) => {
         switch (main) {
             case 'Clear':
